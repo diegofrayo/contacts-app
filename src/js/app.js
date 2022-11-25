@@ -1,29 +1,40 @@
-const personContent = document.querySelector('.contacts ul');
+import contacts from "./modules/contactsList.js";
+import createNode from "./modules/createNode.js";
 
 function showPeople() {
-    contacts.map(person => {
-        const contact = document.createElement('li');
-        const img = document.createElement('img');
-        const personInfoDiv = document.createElement('div');
+  const personContent = document.querySelector(".contacts ul");
 
-        const personName = document.createElement('span');
-        const tel = document.createElement('span');
-
-        contact.classList.add('person');
-        personInfoDiv.classList.add('person-info');
-        personName.classList.add('name');
-        tel.classList.add('tel');
-
-        img.src = person.img;
-        personName.innerText = person.name;
-        tel.innerText = person.tel;
-
-        personInfoDiv.append(personName, tel);
-
-        contact.append(img, personInfoDiv);
-        personContent.appendChild(contact);
+  contacts.map((person) => {
+    const contact = createNode({
+      element: document.createElement("li"),
+      className: "person",
+      children: [
+        createNode({
+          element: document.createElement("img"),
+          props: {
+            src: person.img,
+          },
+        }),
+        createNode({
+          element: document.createElement("div"),
+          className: "person-info",
+          children: [
+            createNode({
+              element: document.createElement("span"),
+              className: "name",
+              innerText: person.name,
+            }),
+            createNode({
+              element: document.createElement("span"),
+              className: "tel",
+              innerText: person.tel,
+            }),
+          ],
+        }),
+      ],
     });
-
+    personContent.appendChild(contact);
+  });
 }
 
-showPeople(); 
+showPeople();
