@@ -26,4 +26,4 @@ function showPeople() {
 
 }
 
-window.addEventListener('load', showPeople);
+showPeople(); 
