@@ -1,9 +1,10 @@
 import contacts from "./data/contacts.js";
-import ContactsList from "./components/ContactsList.js";
+import People from "./components/ContactsList.js";
+import SearchInput from "./components/SearchInput.js";
 
 // TODO: Execute this code when DOMContent has been loaded
 setTimeout(() => {
-	document.getElementById("app").appendChild(ContactsList({ contacts }));
+	document.getElementById("app").append(SearchInput(), People({ contacts }));
 }, 2000);
 
 /*
