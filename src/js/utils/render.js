@@ -1,21 +1,23 @@
-export function createNode({ element, children, className, innerText, props }) {
+export function createNode({ tag, children, className, innerText, props }) {
+	const Element = document.createElement(tag);
+
 	if (children) {
-		element.append(...children);
+		Element.append(...children);
 	}
 
 	if (className) {
-		element.classList.add(className);
+		Element.classList.add(className);
 	}
 
 	if (innerText) {
-		element.innerText = innerText;
+		Element.innerText = innerText;
 	}
 
 	if (props) {
 		Object.entries(props).forEach(([key, value]) => {
-			element.setAttribute(key, value);
+			Element.setAttribute(key, value);
 		});
 	}
 
-	return element;
+	return Element;
 }

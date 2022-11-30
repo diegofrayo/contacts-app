@@ -2,17 +2,17 @@ import { createNode } from "../utils/render.js";
 
 function SearchInput() {
 	const Element = createNode({
-		element: document.createElement("form"),
+		tag: "form",
 		children: [
 			createNode({
-				element: document.createElement("input"),
+				tag: "input",
 				className: "search-input",
 				props: {
 					type: "text",
 				},
 			}),
 			createNode({
-				element: document.createElement("button"),
+				tag: "button",
 				className: "submit-btn",
 				innerText: "Submit",
 				props: {
@@ -26,3 +26,33 @@ function SearchInput() {
 }
 
 export default SearchInput;
+
+/*
+const personContent = document.querySelector(".contacts ul"),
+	submitBtn = document.querySelector("#btn-submit");
+
+const search = document.querySelector("#search");
+
+let value = "";
+
+function submit(e) {
+	e.preventDefault();
+	let items = document.querySelectorAll(".contacts ul li");
+
+	contacts.filter((person, i) => {
+		if (person.name.toUpperCase().indexOf(value) > -1) {
+			items[i].style.display = "";
+		} else {
+			items[i].style.display = "none";
+		}
+	});
+	search.value = "";
+}
+}
+
+search.addEventListener("keyup", () => {
+	value = search.value.toUpperCase();
+});
+
+submitBtn.addEventListener("click", submit);
+*/
