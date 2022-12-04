@@ -1,22 +1,15 @@
-import { createNode } from "../utils/render.js";
+import { createElement, createComponent } from "../../utils/render";
 
 function SearchInput() {
-	const Element = createNode({
-		tag: "form",
+	const Element = createElement({
+		element: "form",
 		children: [
-			createNode({
-				tag: "input",
+			createElement({
+				element: "input",
 				className: "search-input",
 				props: {
 					type: "text",
-				},
-			}),
-			createNode({
-				tag: "button",
-				className: "submit-btn",
-				innerText: "Submit",
-				props: {
-					type: "button",
+					placeholder: "Search",
 				},
 			}),
 		],
@@ -25,7 +18,7 @@ function SearchInput() {
 	return Element;
 }
 
-export default SearchInput;
+export default createComponent(SearchInput);
 
 /*
 const personContent = document.querySelector(".contacts ul"),

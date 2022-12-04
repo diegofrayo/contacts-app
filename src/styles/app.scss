@@ -1,0 +1,7 @@
+// Global
+@use "./global.scss";
+
+// Components
+@use "../components/ContactsList/ContactsList.scss";
+@use "../components/SearchInput/SearchInput.scss";
+@use "../components/Wrapper/Wrapper.scss";

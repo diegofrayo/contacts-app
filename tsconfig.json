@@ -1,0 +1,38 @@
+{
+	"files": ["src/**/*.js", "src/**/*.ts"],
+	"compilerOptions": {
+		// Type-cheking
+		"alwaysStrict": true,
+		"strict": true,
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"useUnknownInCatchVariables": true,
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitReturns": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+
+		// JavaScript support
+		"allowJs": true,
+
+		// Modules
+		"rootDir": "./src",
+		// TODO
+		// "baseUrl": ".",
+		// "paths": {
+		// 	"~/*": ["src/*"]
+		// },
+
+		// Emit
+		"sourceMap": true,
+
+		// Language and environment
+		"target": "es2022"
+	},
+	"exclude": ["node_modules"]
+}

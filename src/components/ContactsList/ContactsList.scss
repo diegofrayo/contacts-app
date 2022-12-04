@@ -1,0 +1,32 @@
+.contacts ul {
+	margin-top: 2rem;
+}
+
+.contacts ul .person {
+	display: flex;
+	align-items: center;
+	gap: 25px;
+	margin-bottom: 1.5rem;
+}
+
+.contacts ul .person img {
+	width: 55px;
+	border: 2px solid #ccc;
+	padding: 1px;
+	height: 55px;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.contacts ul .person .person-info span {
+	font-weight: 500;
+	display: block;
+	font-size: 18px;
+	color: #3a3a3a;
+}
+
+.contacts ul .person .person-info .tel {
+	font-size: 14px;
+	color: #3a3a3a;
+}
