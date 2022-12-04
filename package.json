@@ -3,8 +3,9 @@
 	"version": "1.0.0",
 	"description": "App for learning purposes",
 	"scripts": {
-		"watch": "gulp",
+		"build": "gulp buildProject",
 		"dev": "npx serve ./public",
+		"watch": "gulp",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {

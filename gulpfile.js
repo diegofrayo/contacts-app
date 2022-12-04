@@ -9,18 +9,16 @@ const source = require("vinyl-source-stream");
 const tsify = require("tsify");
 const watchify = require("watchify");
 
-const watchedBrowserify = watchify(
-	browserify({
+function buildJS(watchify = true) {
+	let browserifyInstance = browserify({
 		basedir: ".",
 		debug: true,
 		entries: ["src/app.ts"],
 		cache: {},
 		packageCache: {},
-	}).plugin(tsify),
-);
+	});
 
-function buildJS() {
-	return watchedBrowserify
+	return (watchify === false ? browserifyInstance : watchify(browserifyInstance.plugin(tsify)))
 		.plugin(tsify)
 		.bundle()
 		.on("error", fancyLog)
@@ -51,7 +49,16 @@ function watch() {
 }
 
 exports.default = watch;
-exports.buildProject = gulp.series([() => clean(), buildJS, buildCSS, copy]);
+exports.buildProject = gulp.series([
+	function buildProject_clean() {
+		return clean();
+	},
+	function buildProject_buildJS() {
+		return buildJS(false);
+	},
+	buildCSS,
+	copy,
+]);
 exports.buildCSS = buildCSS;
 exports.buildJS = gulp.series([cleanJS, buildJS]);
 exports.cleanJS = cleanJS;
