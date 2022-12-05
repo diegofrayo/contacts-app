@@ -63,7 +63,7 @@ function watch() {
 }
 
 exports.default = gulp.series(buildProject().concat([watch]));
-exports.buildProject = gulp.series(buildProject);
+exports.buildProject = gulp.series(buildProject());
 exports.buildCSS = buildCSS;
 exports.buildJS = gulp.series([cleanJS, buildJS]);
 exports.cleanJS = cleanJS;
