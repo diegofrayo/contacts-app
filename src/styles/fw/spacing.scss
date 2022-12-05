@@ -1,0 +1,100 @@
+@use "sass:string";
+
+@mixin stylesX($property, $selectorSize) {
+	#{$property}-left: $selectorSize;
+	#{$property}-right: $selectorSize;
+}
+
+@mixin stylesY($property, $selectorSize) {
+	#{$property}-bottom: $selectorSize;
+	#{$property}-top: $selectorSize;
+}
+
+@mixin styles($property, $orientation, $selectorSize, $value) {
+	$propertyShorthand: "m";
+
+	@if ($property == padding) {
+		$propertyShorthand: "p";
+	}
+
+	.fw-#{$propertyShorthand}#{$orientation}-#{$selectorSize} {
+		@if ($orientation == "x") {
+			@include stylesX($property, $value);
+		} @else {
+			@include stylesY($property, $value);
+		}
+	}
+}
+
+@for $i from 0 through 16 {
+	@if ($i <= 8) {
+		$selectorSize: #{$i * 0.5};
+		$value: #{$i * 0.125}rem;
+
+		@if (string.index($selectorSize, ".") == 2) {
+			$selectorSize: string.insert($selectorSize, "\\", 2);
+		}
+
+		@include styles(margin, "x", $selectorSize, $value);
+		@include styles(margin, "y", $selectorSize, $value);
+		@include styles(padding, "x", $selectorSize, $value);
+		@include styles(padding, "y", $selectorSize, $value);
+
+		.fw-mb-#{$selectorSize} {
+			margin-bottom: $value;
+		}
+
+		.fw-mt-#{$selectorSize} {
+			margin-top: $value;
+		}
+	} @else if ($i >= 9 & $i <=13) {
+		.fw-my-#{$i - 4} {
+			margin-bottom: #{($i - 4) * 0.25}rem;
+			margin-top: #{($i - 4) * 0.25}rem;
+		}
+
+		.fw-mt-#{$i - 4} {
+			margin-top: #{($i - 4) * 0.25}rem;
+		}
+
+		.fw-mb-#{$i - 4} {
+			margin-bottom: #{($i - 4) * 0.25}rem;
+		}
+
+		.fw-mx-#{$i - 4} {
+			margin-left: #{($i - 4) * 0.25}rem;
+			margin-right: #{($i - 4) * 0.25}rem;
+		}
+
+		.fw-py-#{$i - 4} {
+			padding-bottom: #{($i - 4) * 0.25}rem;
+			padding-top: #{($i - 4) * 0.25}rem;
+		}
+
+		.fw-px-#{$i - 4} {
+			padding-left: #{($i - 4) * 0.25}rem;
+			padding-right: #{($i - 4) * 0.25}rem;
+		}
+	}
+}
+
+// [
+//   {name: 0, selectorSize: 0},
+//   {name: 0.5, selectorSize: "0.125rem"},
+//   {name: 1, selectorSize: "0.25 rem"},
+//   {name: 1.5, selectorSize: "0.375 rem"},
+//   {name: 2, selectorSize: "0.5 rem"},
+//   {name: 2.5, selectorSize:"0.625 rem" },
+//   {name: 3, selectorSize:"0.75rem" },
+//   {name: 4, selectorSize: "1rem"},
+//   {name: 5, selectorSize: },
+//   {name: 6, selectorSize: },
+//   {name: 7, selectorSize: },
+//   {name: 8, selectorSize: },
+//   {name: 9, selectorSize: },
+//   {name: 10, selectorSize: },
+//   {name: 11, selectorSize: },
+//   {name: 12, selectorSize: },
+//   {name: 14, selectorSize: },
+//   {name: 16, selectorSize: },
+// ]

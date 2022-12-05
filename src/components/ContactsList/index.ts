@@ -31,8 +31,8 @@ function renderContacts(filter?: string) {
 		if (isNotEmptyString(filter)) {
 			return CONTACTS.filter((contact) => {
 				return (
-					contact.name.toLowerCase().includes(filter) ||
-					(contact.tel || "").toLowerCase().includes(filter)
+					contact.name.toLowerCase().includes(filter.toLowerCase()) ||
+					(contact.tel || "").toLowerCase().includes(filter.toLowerCase())
 				);
 			});
 		}

@@ -1,6 +1,7 @@
 const gulp = require("gulp");
 const gulpClean = require("gulp-clean");
 const gulpCopy = require("gulp-copy");
+const gulpRename = require("gulp-rename");
 const gulpSass = require("gulp-sass")(require("sass"));
 const babelify = require("babelify");
 const browserify = require("browserify");
@@ -22,11 +23,8 @@ function buildCSS() {
 	return gulp
 		.src("./src/styles/app.scss")
 		.pipe(gulpSass().on("error", gulpSass.logError))
+		.pipe(gulpRename("app.css"))
 		.pipe(gulp.dest("./public/css"));
-}
-
-function cleanJS() {
-	return clean("js");
 }
 
 function copyAssets() {
@@ -45,16 +43,24 @@ function watch() {
 }
 
 exports.default = gulp.series([...buildProject(), watch]);
-exports.buildCSS = buildCSS;
+exports.buildCSS = gulp.series([cleanCSS, buildCSS]);
 exports.buildJS = gulp.series([cleanJS, buildJSNonWatchify]);
 exports.buildProject = gulp.series(buildProject());
-exports.cleanJS = cleanJS;
 exports.copyAssets = copyAssets;
+exports.watch = watch;
 
 // --- Utils ---
 
 function cleanProject() {
 	return clean();
+}
+
+function cleanJS() {
+	return clean("js");
+}
+
+function cleanCSS() {
+	return clean("css");
 }
 
 function clean(folder = "") {
