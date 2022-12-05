@@ -1,18 +1,16 @@
 import SearchInput from "../SearchInput";
 import ContactsList from "../ContactsList";
 import CONTACTS from "../../data/contacts";
-import { createComponent } from "../../utils/render";
+import Ryakt from "../../lib/Ryakt";
 
 function Wrapper() {
-	const html = `
-		<div class="wrapper">
-			<h2 class="contact-title">All Contacts</h2>
-			${SearchInput()}
-			${ContactsList({ contacts: CONTACTS })}
-		</div>
+	const children = `
+		<h2>All Contacts</h2>
+		${SearchInput()}
+		${ContactsList({ contacts: CONTACTS })}
   `;
 
-	return html;
+	return Ryakt.createElement("div", { className: "wrapper" }, [children]);
 }
 
-export default createComponent(Wrapper);
+export default Wrapper;

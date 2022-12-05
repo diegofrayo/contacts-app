@@ -1,6 +1,6 @@
 import Wrapper from "./components/Wrapper";
-import { renderComponent } from "./utils/render";
+import { RyaktDOM } from "./lib/Ryakt";
 
 window.addEventListener("DOMContentLoaded", () => {
-	renderComponent(Wrapper(), document.getElementById("app"));
+	RyaktDOM.render(Wrapper(), document.getElementById("app"));
 });

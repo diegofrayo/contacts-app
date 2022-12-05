@@ -22,7 +22,7 @@
 
 		// Modules
 		"rootDir": "./src",
-		// TODO
+		// TODO: Config absolute paths (1)
 		// "baseUrl": ".",
 		// "paths": {
 		// 	"~/*": ["src/*"]

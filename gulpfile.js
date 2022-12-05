@@ -9,8 +9,8 @@ const source = require("vinyl-source-stream");
 const tsify = require("tsify");
 const watchify = require("watchify");
 
-function buildJS(watchify = true) {
-	let browserifyInstance = browserify({
+function buildJS(watch = true) {
+	const browserifyInstance = browserify({
 		basedir: ".",
 		debug: true,
 		entries: ["src/app.ts"],
@@ -18,8 +18,9 @@ function buildJS(watchify = true) {
 		packageCache: {},
 	});
 
-	return (watchify === false ? browserifyInstance : watchify(browserifyInstance.plugin(tsify)))
-		.plugin(tsify)
+	return (
+		watch === false ? browserifyInstance.plugin(tsify) : watchify(browserifyInstance.plugin(tsify))
+	)
 		.bundle()
 		.on("error", fancyLog)
 		.pipe(source("app.js"))
