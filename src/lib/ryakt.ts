@@ -3,12 +3,14 @@ import type { U_Unshift } from "~/types";
 import { isObject, isString } from "./validator";
 
 type T_EventHandler = [selector: string, handler: (ev: Event) => void];
-type T_EventHandlerWithEventName = U_Unshift<"click", T_EventHandler>;
+type T_EventHandlerWithEventName = U_Unshift<"click" | "change" | "keyup", T_EventHandler>;
 
 type T_CreateElementPropsParam = {
 	[key: string]: unknown;
 	className?: string;
 	onClick?: T_EventHandler;
+	onChange?: T_EventHandler;
+	onKeyUp?: T_EventHandler;
 } | null;
 
 const Ryakt = {
@@ -36,9 +38,14 @@ const Ryakt = {
 		if (props) {
 			Object.entries(props).forEach(([key, value]) => {
 				if (key === "className") {
-					Element.classList.add(String(value));
+					Element.classList.add(...String(value).split(" "));
+					// TODO: Create regex for event handlers (2)
 				} else if (key === "onClick") {
 					this.addEventListener(["click", ...(value as T_EventHandler)]);
+				} else if (key === "onChange") {
+					this.addEventListener(["change", ...(value as T_EventHandler)]);
+				} else if (key === "onKeyUp") {
+					this.addEventListener(["keyup", ...(value as T_EventHandler)]);
 				} else {
 					Element.setAttribute(key, String(value));
 				}

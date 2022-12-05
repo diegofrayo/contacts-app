@@ -9,7 +9,8 @@
 					"~/components": "./src/components",
 					"~/data": "./src/data",
 					"~/lib": "./src/lib",
-					"~/types": "./src/types"
+					"~/types": "./src/types",
+					"~/utils": "./src/utils"
 				}
 			}
 		]

@@ -1,17 +1,48 @@
 import classNames from "classnames";
 
-import { isNotEmptyString } from "~/lib/validator";
+import CONTACTS from "~/data/contacts";
 import Ryakt from "~/lib/ryakt";
-import type { T_Contact } from "~/types";
+import { isNotEmptyString } from "~/lib/validator";
+import EventsManager from "~/utils/events-manager";
 
-function ContactsList({ contacts }: { contacts: T_Contact[] }) {
+function ContactsList() {
+	EventsManager.addEventListener(
+		EventsManager.ON_INPUT_SEARCH_CHANGE,
+		function onInputSearchChange(event: CustomEvent<string>) {
+			document.querySelectorAll(".ContactsList")[0].innerHTML = renderContacts(event.detail);
+		},
+	);
+
+	return Ryakt.createElement("div", { className: "ContactsList" }, [renderContacts()]);
+}
+
+export default ContactsList;
+
+// --- Utils ---
+
+function renderContacts(filter?: string) {
+	// handlers
 	function handleTelClick(event: Event): void {
 		event.stopPropagation();
 	}
 
+	// utils
+	function filterContacts() {
+		if (isNotEmptyString(filter)) {
+			return CONTACTS.filter((contact) => {
+				return (
+					contact.name.toLowerCase().includes(filter) ||
+					(contact.tel || "").toLowerCase().includes(filter)
+				);
+			});
+		}
+
+		return CONTACTS;
+	}
+
 	const children = `
-		<ul class="contact__list">
-			${contacts
+		<ul class="ContactsList__list">
+			${filterContacts()
 				.map((person) => {
 					const showDetails =
 						isNotEmptyString(person.twitter) ||
@@ -20,21 +51,24 @@ function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 						isNotEmptyString(person.mail);
 
 					return `
-						<li class="contact__list__item">
+						<li class="ContactsList__list__item">
 							<details class="fw-w-full">
-								<summary class="contact__list__item__header">
-									<img class="contact__list__item__header__avatar" src=${person.avatar} />
-									<div class="contact__list__item__header__details">
-										<span class="contact__list__item__header__details__name">${person.name}</span>
+								<summary class="${classNames(
+									"ContactsList__list__item__header",
+									showDetails && "fw-cursor-pointer",
+								)}">
+									<img class="ContactsList__list__item__header__avatar" src=${person.avatar} />
+									<div class="ContactsList__list__item__header__details">
+										<span class="ContactsList__list__item__header__details__name">${person.name}</span>
 										${
 											isNotEmptyString(person.tel)
 												? Ryakt.createElement(
 														"a",
 														{
 															href: `tel:${person.tel}`,
-															className: "contact__list__item__header__details__tel",
+															className: "ContactsList__list__item__header__details__tel",
 															onClick: [
-																".contact__list__item__header__details__tel",
+																".ContactsList__list__item__header__details__tel",
 																handleTelClick,
 															],
 														},
@@ -45,13 +79,13 @@ function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 									</div>
 								</summary>
 								<div class="${classNames(
-									"contact__list__item__extra-info",
+									"ContactsList__list__item__extra-info",
 									showDetails ? "fw-block" : "fw-hidden",
 								)}">
 									${
 										isNotEmptyString(person.twitter)
 											? `
-											<p class="contact__list__item__extra-info__item">
+											<p class="ContactsList__list__item__extra-info__item">
 												<b>Twitter:</b> <a href="https://twitter.com/${person.twitter}" target="_blank">@${person.twitter}</a>
 											</p>`
 											: ""
@@ -59,7 +93,7 @@ function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 									${
 										isNotEmptyString(person.instagram)
 											? `
-											<p class="contact__list__item__extra-info__item">
+											<p class="ContactsList__list__item__extra-info__item">
 												<b>Instagram:</b> <a href="https://instagram.com/${person.instagram}" target="_blank">@${person.instagram}</a>
 											</p>`
 											: ""
@@ -67,7 +101,7 @@ function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 									${
 										isNotEmptyString(person.whatsApp)
 											? `
-											<p class="contact__list__item__extra-info__item">
+											<p class="ContactsList__list__item__extra-info__item">
 												<b>WhatsApp:</b> <a href="https://api.whatsapp.com/send?phone=&${person.whatsApp}&text=Hi" target="_blank">${person.whatsApp}</a>
 											</p>`
 											: ""
@@ -75,7 +109,7 @@ function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 									${
 										isNotEmptyString(person.mail)
 											? `
-											<p class="contact__list__item__extra-info__item">
+											<p class="ContactsList__list__item__extra-info__item">
 												<b>Mail</b>: <a href="mailto:${person.mail}" target="_blank">${person.mail}</a>
 											</p>`
 											: ""
@@ -89,7 +123,5 @@ function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 		</ul>
 	`;
 
-	return Ryakt.createElement("div", { className: "contact" }, [children]);
+	return children;
 }
-
-export default ContactsList;

@@ -10,7 +10,12 @@
 
 body {
 	align-items: center;
+	cursor: default;
 	display: flex;
 	justify-content: center;
 	width: 100%;
+}
+
+#app {
+	padding: 10px 0;
 }
