@@ -1,7 +1,7 @@
 import SearchInput from "../SearchInput";
 import ContactsList from "../ContactsList";
 import CONTACTS from "../../data/contacts";
-import Ryakt from "../../lib/Ryakt";
+import Ryakt from "../../lib/ryakt";
 
 function Wrapper() {
 	const children = `

@@ -1,5 +1,5 @@
 import { T_Contact } from "../../types";
-import Ryakt from "../../lib/Ryakt";
+import Ryakt from "../../lib/ryakt";
 
 function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 	function handleTelClick(event: Event): void {

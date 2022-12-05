@@ -1,4 +1,4 @@
-import Ryakt from "../../lib/Ryakt";
+import Ryakt from "../../lib/ryakt";
 
 function SearchInput() {
 	const Element = Ryakt.createElement("form", null, [

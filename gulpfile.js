@@ -44,22 +44,26 @@ function copy() {
 		.pipe(gulpCopy("./public", { prefix: 1 }));
 }
 
+function buildProject() {
+	return [
+		function buildProject_clean() {
+			return clean();
+		},
+		function buildProject_buildJS() {
+			return buildJS(false);
+		},
+		buildCSS,
+		copy,
+	];
+}
+
 function watch() {
 	gulp.watch("./src/**/*.scss", buildCSS);
 	gulp.watch("./src/**/*.ts", buildJS);
 }
 
-exports.default = watch;
-exports.buildProject = gulp.series([
-	function buildProject_clean() {
-		return clean();
-	},
-	function buildProject_buildJS() {
-		return buildJS(false);
-	},
-	buildCSS,
-	copy,
-]);
+exports.default = gulp.series(buildProject().concat([watch]));
+exports.buildProject = gulp.series(buildProject);
 exports.buildCSS = buildCSS;
 exports.buildJS = gulp.series([cleanJS, buildJS]);
 exports.cleanJS = cleanJS;
