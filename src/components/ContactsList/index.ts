@@ -1,5 +1,8 @@
-import { T_Contact } from "../../types";
-import Ryakt from "../../lib/ryakt";
+import classNames from "classnames";
+
+import { isNotEmptyString } from "~/lib/validator";
+import Ryakt from "~/lib/ryakt";
+import type { T_Contact } from "~/types";
 
 function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 	function handleTelClick(event: Event): void {
@@ -10,6 +13,12 @@ function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 		<ul class="contact__list">
 			${contacts
 				.map((person) => {
+					const showDetails =
+						isNotEmptyString(person.twitter) ||
+						isNotEmptyString(person.instagram) ||
+						isNotEmptyString(person.whatsApp) ||
+						isNotEmptyString(person.mail);
+
 					return `
 						<li class="contact__list__item">
 							<details class="fw-w-full">
@@ -18,7 +27,7 @@ function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 									<div class="contact__list__item__header__details">
 										<span class="contact__list__item__header__details__name">${person.name}</span>
 										${
-											person.tel
+											isNotEmptyString(person.tel)
 												? Ryakt.createElement(
 														"a",
 														{
@@ -35,9 +44,12 @@ function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 										}
 									</div>
 								</summary>
-								<div class="contact__list__item__extra-info">
+								<div class="${classNames(
+									"contact__list__item__extra-info",
+									showDetails ? "fw-block" : "fw-hidden",
+								)}">
 									${
-										person.twitter
+										isNotEmptyString(person.twitter)
 											? `
 											<p class="contact__list__item__extra-info__item">
 												<b>Twitter:</b> <a href="https://twitter.com/${person.twitter}" target="_blank">@${person.twitter}</a>
@@ -45,7 +57,7 @@ function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 											: ""
 									}
 									${
-										person.instagram
+										isNotEmptyString(person.instagram)
 											? `
 											<p class="contact__list__item__extra-info__item">
 												<b>Instagram:</b> <a href="https://instagram.com/${person.instagram}" target="_blank">@${person.instagram}</a>
@@ -53,7 +65,7 @@ function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 											: ""
 									}
 									${
-										person.whatsApp
+										isNotEmptyString(person.whatsApp)
 											? `
 											<p class="contact__list__item__extra-info__item">
 												<b>WhatsApp:</b> <a href="https://api.whatsapp.com/send?phone=&${person.whatsApp}&text=Hi" target="_blank">${person.whatsApp}</a>
@@ -61,7 +73,7 @@ function ContactsList({ contacts }: { contacts: T_Contact[] }) {
 											: ""
 									}
 									${
-										person.mail
+										isNotEmptyString(person.mail)
 											? `
 											<p class="contact__list__item__extra-info__item">
 												<b>Mail</b>: <a href="mailto:${person.mail}" target="_blank">${person.mail}</a>

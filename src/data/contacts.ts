@@ -1,4 +1,4 @@
-import { T_Contact } from "../types";
+import type { T_Contact } from "~/types";
 
 const CONTACTS: T_Contact[] = [
 	{

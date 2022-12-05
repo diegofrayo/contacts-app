@@ -1,5 +1,4 @@
 {
-	"files": ["src/**/*.js", "src/**/*.ts"],
 	"compilerOptions": {
 		// Type-cheking
 		"alwaysStrict": true,
@@ -21,18 +20,22 @@
 		"allowJs": true,
 
 		// Modules
-		"rootDir": "./src",
-		// TODO: Config absolute paths (1)
-		// "baseUrl": ".",
-		// "paths": {
-		// 	"~/*": ["src/*"]
-		// },
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["src/*"]
+		},
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
 
 		// Emit
 		"sourceMap": true,
 
 		// Language and environment
-		"target": "es2022"
+		"target": "es2022",
+
+		// Interop Constraints
+		"allowSyntheticDefaultImports": true
 	},
+	"include": ["src/**/*.ts"],
 	"exclude": ["node_modules"]
 }

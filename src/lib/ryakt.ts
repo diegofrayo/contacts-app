@@ -1,4 +1,5 @@
-import { U_Unshift } from "../types";
+import type { U_Unshift } from "~/types";
+
 import { isObject, isString } from "./validator";
 
 type T_EventHandler = [selector: string, handler: (ev: Event) => void];
@@ -18,9 +19,7 @@ const Ryakt = {
 	attachEventListeners() {
 		this.listeners.forEach(([eventName, selector, handler]: T_EventHandlerWithEventName) => {
 			document.querySelectorAll(selector).forEach((element) => {
-				element.addEventListener(eventName, (event: Event) => {
-					handler(event);
-				});
+				element.addEventListener(eventName, handler);
 			});
 		});
 

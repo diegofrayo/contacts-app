@@ -1,4 +1,4 @@
-import { T_Object } from "../types";
+import type { T_Object } from "~/types";
 
 // --- Primitives ---
 
