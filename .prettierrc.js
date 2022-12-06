@@ -12,8 +12,4 @@ module.exports = {
 	arrowParens: "always",
 	semi: true,
 	trailingComma: "all",
-
-	// jsx
-	bracketSameLine: false,
-	singleAttributePerLine: true,
 };

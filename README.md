@@ -11,4 +11,4 @@ App for learning purposes
 
 ## Live demo
 
-- [https://demo-contacts-app.vercel.app](https://demo-contacts-app.vercel.app)
+[https://demo-contacts-app.vercel.app](https://demo-contacts-app.vercel.app)
