@@ -83,6 +83,9 @@ async function renderContacts(filter?: string) {
 												  )
 												: ""
 										}
+									<button class="fw-absolute fw-top-1 fw-right-1 fw-bg-transparent fw-p-1 fw-font-bold fw-border-0">
+										x
+									</button>
 									</div>
 								</summary>
 								<div class="${classNames(

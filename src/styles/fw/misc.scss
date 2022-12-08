@@ -1,6 +1,10 @@
+// --- width ---
+
 .fw-w-full {
 	width: 100%;
 }
+
+// --- display ---
 
 .fw-flex {
 	display: flex;
@@ -10,14 +14,45 @@
 	display: none;
 }
 
+// --- cursor ---
 .fw-cursor-pointer {
 	cursor: pointer;
 }
+
+// --- text align ---
 
 .fw-text-center {
 	text-align: center;
 }
 
+// --- border ---
+
 .fw-border-0 {
 	border: none;
+}
+
+// --- font ---
+
+.fw-font-bold {
+	font-weight: bold;
+}
+
+// --- position ---
+
+.fw-absolute {
+	position: absolute;
+}
+
+.fw-top-1 {
+	top: 1rem;
+}
+
+.fw-right-1 {
+	right: 1rem;
+}
+
+// --- background ---
+
+.fw-bg-transparent {
+	background-color: transparent;
 }

@@ -13,41 +13,16 @@ type T_CreateElementPropsParam = {
 } | null;
 type T_DidMountMethod = () => void;
 
-const Ryakt = {
-	DOMEventsListeners: [] as T_DOMEventHandlerWithEventName[],
-	addDOMEventListener(listener: T_DOMEventHandlerWithEventName) {
-		this.DOMEventsListeners.push(listener);
-	},
-	attachDOMEventsListeners() {
-		this.DOMEventsListeners.forEach(
-			([eventName, selector, handler]: T_DOMEventHandlerWithEventName) => {
-				document.querySelectorAll(selector).forEach((element) => {
-					element.addEventListener(eventName, handler);
-				});
-			},
-		);
+class RyaktClass {
+	private DOMEventsListeners = [] as T_DOMEventHandlerWithEventName[];
+	private didMountMethods = [] as T_DidMountMethod[];
 
-		this.DOMEventsListeners = [];
-	},
-
-	didMountMethods: [] as T_DidMountMethod[],
-	addDidMountMethod(method: T_DidMountMethod) {
-		this.didMountMethods.push(method);
-	},
-	executeDidMountMethods() {
-		this.didMountMethods.reverse().forEach((method) => {
-			method();
-		});
-
-		this.didMountMethods = [];
-	},
-
-	createElement(
+	createElement = (
 		element: string,
 		props: T_CreateElementPropsParam,
 		children?: (T_RyaktElement | string)[],
 		options?: { didMount: T_DidMountMethod },
-	): T_RyaktElement {
+	): T_RyaktElement => {
 		const Element = document.createElement(element);
 
 		if (props) {
@@ -92,20 +67,50 @@ const Ryakt = {
 				return Element.outerHTML;
 			},
 		};
-	},
-};
+	};
 
-const RyaktDOM = {
-	render: function render(element: T_RyaktElement, target: HTMLElement | null) {
+	attachDOMEventsListeners = () => {
+		this.DOMEventsListeners.forEach(
+			([eventName, selector, handler]: T_DOMEventHandlerWithEventName) => {
+				document.querySelectorAll(selector).forEach((element) => {
+					element.addEventListener(eventName, handler);
+				});
+			},
+		);
+
+		this.DOMEventsListeners = [];
+	};
+
+	executeDidMountMethods = () => {
+		this.didMountMethods.reverse().forEach((method) => {
+			method();
+		});
+
+		this.didMountMethods = [];
+	};
+
+	private addDidMountMethod(method: T_DidMountMethod) {
+		this.didMountMethods.push(method);
+	}
+
+	private addDOMEventListener(listener: T_DOMEventHandlerWithEventName) {
+		this.DOMEventsListeners.push(listener);
+	}
+}
+
+class RyaktDOM {
+	static render(element: T_RyaktElement, target: HTMLElement | null) {
 		if (!target) throw new Error("Invalid target");
 
 		target.appendChild(element.element);
-		Ryakt.attachDOMEventsListeners();
-		Ryakt.executeDidMountMethods();
-	},
-};
+		RyaktInstance.attachDOMEventsListeners();
+		RyaktInstance.executeDidMountMethods();
+	}
+}
 
-export default Ryakt;
+const RyaktInstance = new RyaktClass();
+
+export default RyaktInstance;
 export { RyaktDOM };
 
 // --- Types ---
