@@ -1,33 +1,4 @@
-@use "sass:string";
-
-@mixin styles($property, $orientation, $selectorSize, $value) {
-	$propertyShorthand: #{if($property == padding, "p", "m")};
-
-	@if ($orientation == "all") {
-		$sides: (
-			"t": "top",
-			"l": "left",
-			"r": "right",
-			"b": "bottom",
-		);
-
-		@each $sideShorthand, $side in $sides {
-			.fw-#{$propertyShorthand}#{$sideShorthand}-#{$selectorSize} {
-				#{$property}-#{$side}: $value;
-			}
-		}
-	} @else {
-		.fw-#{$propertyShorthand}#{$orientation}-#{$selectorSize} {
-			@if ($orientation == "x") {
-				#{$property}-left: $value;
-				#{$property}-right: $value;
-			} @else {
-				#{$property}-bottom: $value;
-				#{$property}-top: $value;
-			}
-		}
-	}
-}
+@use "./spacing-utils.scss";
 
 @for $i from 0 through (12 + 4) {
 	$selectorSize: 0;
@@ -35,21 +6,18 @@
 	$unit: #{if($i == 0, "", "rem")};
 
 	@if ($i <= 8) {
-		$selectorSize: #{$i * 0.5};
+		$selectorSize: $i * 0.5;
 		$value: #{$i * 0.125}#{$unit};
-
-		@if (string.index($selectorSize, ".") == 2) {
-			$selectorSize: string.insert($selectorSize, "\\", 2);
-		}
 	} @else if ($i >= 9 & $i <=13) {
 		$selectorSize: $i - 4;
 		$value: #{$selectorSize * 0.25}#{$unit};
 	}
 
-	@include styles(margin, "x", $selectorSize, $value);
-	@include styles(margin, "y", $selectorSize, $value);
-	@include styles(margin, "all", $selectorSize, $value);
-	@include styles(padding, "x", $selectorSize, $value);
-	@include styles(padding, "y", $selectorSize, $value);
-	@include styles(padding, "all", $selectorSize, $value);
+	$selectorSize: spacing-utils.escape-class-name($selectorSize);
+	@include spacing-utils.generate-spacing-classes(margin, "x", $selectorSize, $value);
+	@include spacing-utils.generate-spacing-classes(margin, "y", $selectorSize, $value);
+	@include spacing-utils.generate-spacing-classes(margin, "all", $selectorSize, $value);
+	@include spacing-utils.generate-spacing-classes(padding, "x", $selectorSize, $value);
+	@include spacing-utils.generate-spacing-classes(padding, "y", $selectorSize, $value);
+	@include spacing-utils.generate-spacing-classes(padding, "all", $selectorSize, $value);
 }

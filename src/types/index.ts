@@ -1,15 +1,3 @@
-// --- Models ---
-
-export type T_Contact = {
-	name: string;
-	avatar?: string;
-	tel?: string;
-	instagram?: string;
-	twitter?: string;
-	whatsApp?: string;
-	mail?: string;
-};
-
 // --- Primitives ---
 
 export type T_Object<G_Values = unknown> = { [key: string | number | symbol]: G_Values };
