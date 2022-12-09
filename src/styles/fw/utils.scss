@@ -1,0 +1,38 @@
+@use "sass:string";
+
+@function getScaleValues($i) {
+	$selectorValue: 0;
+	$propertyValue: 0;
+	$unit: #{if($i == 0, "", "rem")};
+
+	@if ($i <= 8) {
+		$selectorValue: $i * 0.5;
+		$propertyValue: #{$i * 0.125}#{$unit};
+	} @else if ($i >= 9 & $i <=13) {
+		$selectorValue: $i - 4;
+		$propertyValue: #{$selectorValue * 0.25}#{$unit};
+	}
+
+	@return ("selectorValue": escape-class-name($selectorValue), "value": $propertyValue);
+}
+
+@function to-string($propertyValue) {
+	@if (type-of($propertyValue) == "number") {
+		@return #{$propertyValue};
+	} @else if (type-of($propertyValue) == "string") {
+		@return $propertyValue;
+	} @else {
+		@error 'Input #{$propertyValue} is not a  number or string';
+	}
+}
+
+@function escape-class-name($class) {
+	$result: to-string($class);
+	$dotIndex: string.index($result, ".");
+
+	@if ($dotIndex) {
+		$result: string.insert($result, "\\", $dotIndex);
+	}
+
+	@return $result;
+}

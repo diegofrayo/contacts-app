@@ -1,25 +1,46 @@
-@use "./spacing-utils.scss";
+@use "sass:map";
+@use "./utils.scss";
+
+// --- mixins ---
+
+@mixin generate-spacing-classes($property, $selectorValue, $propertyValue) {
+	$propertyShorthand: #{if($property == padding, "p", "m")};
+
+	$sides: (
+		"t": "top",
+		"l": "left",
+		"r": "right",
+		"b": "bottom",
+	);
+
+	@each $sideShorthand, $side in $sides {
+		.fw-#{$propertyShorthand}#{$sideShorthand}-#{$selectorValue} {
+			#{$property}-#{$side}: $propertyValue;
+		}
+	}
+
+	.fw-#{$propertyShorthand}-#{$selectorValue} {
+		#{$property}: $propertyValue;
+	}
+
+	.fw-#{$propertyShorthand}#{x}-#{$selectorValue} {
+		#{$property}-left: $propertyValue;
+		#{$property}-right: $propertyValue;
+	}
+
+	.fw-#{$propertyShorthand}#{y}-#{$selectorValue} {
+		#{$property}-top: $propertyValue;
+		#{$property}-bottom: $propertyValue;
+	}
+}
+
+// --- main ---
 
 @for $i from 0 through (12 + 4) {
-	$selectorSize: 0;
-	$value: 0;
-	$unit: #{if($i == 0, "", "rem")};
+	$result: utils.getScaleValues($i);
+	$selectorValue: map.get($result, "selectorValue");
+	$propertyValue: map.get($result, "value");
 
-	@if ($i <= 8) {
-		$selectorSize: $i * 0.5;
-		$value: #{$i * 0.125}#{$unit};
-	} @else if ($i >= 9 & $i <=13) {
-		$selectorSize: $i - 4;
-		$value: #{$selectorSize * 0.25}#{$unit};
-	}
-	$selectorSize: spacing-utils.escape-class-name($selectorSize);
-
-	@include spacing-utils.generate-spacing-classes(margin, "", $selectorSize, $value);
-	@include spacing-utils.generate-spacing-classes(margin, "x", $selectorSize, $value);
-	@include spacing-utils.generate-spacing-classes(margin, "y", $selectorSize, $value);
-	@include spacing-utils.generate-spacing-classes(margin, "all-sides", $selectorSize, $value);
-	@include spacing-utils.generate-spacing-classes(padding, "", $selectorSize, $value);
-	@include spacing-utils.generate-spacing-classes(padding, "x", $selectorSize, $value);
-	@include spacing-utils.generate-spacing-classes(padding, "y", $selectorSize, $value);
-	@include spacing-utils.generate-spacing-classes(padding, "all-sides", $selectorSize, $value);
+	@include generate-spacing-classes(margin, $selectorValue, $propertyValue);
+	@include generate-spacing-classes(padding, $selectorValue, $propertyValue);
 }
