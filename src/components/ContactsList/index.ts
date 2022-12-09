@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-import ContactsDAO from "~/data/contacts";
+import Contacts from "~/data/contacts";
 import Ryakt from "~/lib/ryakt";
 import v from "~/lib/validator";
 import EventsManager from "~/utils/events-manager";
@@ -26,7 +26,7 @@ export default ContactsList;
 
 async function renderContacts(filter?: string) {
 	// vars
-	const contacts = await ContactsDAO.getAll();
+	const contacts = await Contacts.getAll();
 
 	// handlers
 	function handleTelClick(event: Event): void {

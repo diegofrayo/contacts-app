@@ -27,26 +27,29 @@ function buildCSS() {
 		.pipe(gulp.dest("./public/css"));
 }
 
-function copyAssets() {
-	return gulp
-		.src(["./src/index.html", "./src/assets/**/*"])
-		.pipe(gulpCopy("./public", { prefix: 1 }));
+function buildHTML() {
+	return copy(["./src/index.html"]);
+}
+
+function copyAllFiles() {
+	return copy(["./src/index.html", "./src/assets/**/*"]);
 }
 
 function buildProject() {
-	return [cleanProject, buildJSNonWatchify, buildCSS, copyAssets];
+	return [cleanProject, buildJSNonWatchify, buildCSS, copyAllFiles];
 }
 
 function watch() {
 	gulp.watch("./src/**/*.scss", buildCSS);
 	gulp.watch("./src/**/*.ts", buildJSWatchify);
+	gulp.watch("./src/index.html", buildHTML);
 }
 
 exports.default = gulp.series([...buildProject(), watch]);
+exports.buildHTML = buildHTML;
 exports.buildCSS = gulp.series([cleanCSS, buildCSS]);
 exports.buildJS = gulp.series([cleanJS, buildJSNonWatchify]);
 exports.buildProject = gulp.series(buildProject());
-exports.copyAssets = copyAssets;
 exports.watch = watch;
 
 // --- Utils ---
@@ -67,6 +70,10 @@ function clean(folder = "") {
 	return gulp
 		.src(path.resolve("./public", folder), { read: false, allowEmpty: true })
 		.pipe(gulpClean());
+}
+
+function copy(src) {
+	return gulp.src(src).pipe(gulpCopy("./public", { prefix: 1 }));
 }
 
 function buildJS(watch) {

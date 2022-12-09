@@ -12,12 +12,14 @@
 		$selectorSize: $i - 4;
 		$value: #{$selectorSize * 0.25}#{$unit};
 	}
-
 	$selectorSize: spacing-utils.escape-class-name($selectorSize);
+
+	@include spacing-utils.generate-spacing-classes(margin, "", $selectorSize, $value);
 	@include spacing-utils.generate-spacing-classes(margin, "x", $selectorSize, $value);
 	@include spacing-utils.generate-spacing-classes(margin, "y", $selectorSize, $value);
-	@include spacing-utils.generate-spacing-classes(margin, "all", $selectorSize, $value);
+	@include spacing-utils.generate-spacing-classes(margin, "all-sides", $selectorSize, $value);
+	@include spacing-utils.generate-spacing-classes(padding, "", $selectorSize, $value);
 	@include spacing-utils.generate-spacing-classes(padding, "x", $selectorSize, $value);
 	@include spacing-utils.generate-spacing-classes(padding, "y", $selectorSize, $value);
-	@include spacing-utils.generate-spacing-classes(padding, "all", $selectorSize, $value);
+	@include spacing-utils.generate-spacing-classes(padding, "all-sides", $selectorSize, $value);
 }

@@ -1,7 +1,7 @@
 import SearchInput from "~/components/SearchInput";
 import ContactsList from "~/components/ContactsList";
 import Separator from "~/components/Separator";
-import ContactDAO from "~/data/contacts";
+import Contacts from "~/data/contacts";
 import Ryakt from "~/lib/ryakt";
 
 function Layout() {
@@ -14,7 +14,7 @@ function Layout() {
 
 	return Ryakt.createElement("div", { className: "Layout" }, [children], {
 		didMount: function LayoutDidMount() {
-			ContactDAO.loadDefaultData();
+			Contacts.loadDefaultData();
 		},
 	});
 }

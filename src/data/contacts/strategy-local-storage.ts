@@ -1,11 +1,11 @@
 import v from "~/lib/validator";
 import type { T_Object } from "~/types";
 
-import IContact from "./interface";
+import IContactsStrategy from "./interface";
 import Contact from "./model";
 import type { T_Contact } from "./model";
 
-class ContactsDAOLocalStorageImplementation extends IContact {
+class ContactsLocalStorageStrategy implements IContactsStrategy {
 	private LOCAL_STORAGE_KEY = "capp_contacts";
 
 	async loadDefaultData() {
@@ -59,7 +59,7 @@ class ContactsDAOLocalStorageImplementation extends IContact {
 	}
 }
 
-export default ContactsDAOLocalStorageImplementation;
+export default ContactsLocalStorageStrategy;
 
 // --- Data ---
 

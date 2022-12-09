@@ -1,12 +1,4 @@
-import IContact from "./interface";
-import ContactsDAOLocalStorageImplementation from "./implementation-local-storage";
+import ContactsContext from "./context";
+import ContactsLocalStorageStrategy from "./strategy-local-storage";
 
-class ContactsDAO {
-	instance: IContact;
-
-	constructor() {
-		this.instance = new ContactsDAOLocalStorageImplementation();
-	}
-}
-
-export default new ContactsDAO().instance;
+export default new ContactsContext(new ContactsLocalStorageStrategy());

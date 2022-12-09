@@ -13,15 +13,31 @@ type T_CreateElementPropsParam = {
 } | null;
 type T_DidMountMethod = () => void;
 
-class RyaktClass {
-	private DOMEventsListeners = [] as T_DOMEventHandlerWithEventName[];
-	private didMountMethods = [] as T_DidMountMethod[];
+class Ryakt {
+	private DOMEventsListeners: T_DOMEventHandlerWithEventName[];
+	private didMountMethods: T_DidMountMethod[];
+	private static instance: Ryakt;
+	private isAppRendered: boolean;
+
+	constructor() {
+		this.DOMEventsListeners = [];
+		this.didMountMethods = [];
+		this.isAppRendered = false;
+	}
+
+	static getInstance = () => {
+		if (v.isUndefined(Ryakt.instance)) {
+			Ryakt.instance = new Ryakt();
+		}
+
+		return Ryakt.instance;
+	};
 
 	createElement = (
 		element: string,
 		props: T_CreateElementPropsParam,
 		children?: (T_RyaktElement | string)[],
-		options?: { didMount: T_DidMountMethod },
+		options?: { didMount: T_DidMountMethod; isRootElement?: true },
 	): T_RyaktElement => {
 		const Element = document.createElement(element);
 
@@ -69,7 +85,22 @@ class RyaktClass {
 		};
 	};
 
-	attachDOMEventsListeners = () => {
+	renderDOM(element: T_RyaktElement, target: HTMLElement | null) {
+		if (v.isNull(target)) {
+			throw new Error("Invalid target");
+		}
+
+		if (this.isAppRendered === true) {
+			throw new Error("App already rendered, you can't render the app multiple times");
+		}
+
+		target.appendChild(element.element);
+		this.attachDOMEventsListeners();
+		this.executeDidMountMethods();
+		this.isAppRendered = true;
+	}
+
+	private attachDOMEventsListeners = () => {
 		this.DOMEventsListeners.forEach(
 			([eventName, selector, handler]: T_DOMEventHandlerWithEventName) => {
 				document.querySelectorAll(selector).forEach((element) => {
@@ -81,7 +112,7 @@ class RyaktClass {
 		this.DOMEventsListeners = [];
 	};
 
-	executeDidMountMethods = () => {
+	private executeDidMountMethods = () => {
 		this.didMountMethods.reverse().forEach((method) => {
 			method();
 		});
@@ -98,20 +129,7 @@ class RyaktClass {
 	}
 }
 
-class RyaktDOM {
-	static render(element: T_RyaktElement, target: HTMLElement | null) {
-		if (!target) throw new Error("Invalid target");
-
-		target.appendChild(element.element);
-		RyaktInstance.attachDOMEventsListeners();
-		RyaktInstance.executeDidMountMethods();
-	}
-}
-
-const RyaktInstance = new RyaktClass();
-
-export default RyaktInstance;
-export { RyaktDOM };
+export default Ryakt.getInstance();
 
 // --- Types ---
 

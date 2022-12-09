@@ -1,6 +1,6 @@
 import Layout from "~/components/Layout";
-import { RyaktDOM } from "~/lib/ryakt";
+import Ryakt from "~/lib/ryakt";
 
 window.addEventListener("DOMContentLoaded", () => {
-	RyaktDOM.render(Layout(), document.getElementById("app"));
+	Ryakt.renderDOM(Layout(), document.getElementById("app"));
 });

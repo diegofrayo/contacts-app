@@ -24,7 +24,13 @@
 @mixin generate-spacing-classes($property, $orientation, $selectorSize, $value) {
 	$propertyShorthand: #{if($property == padding, "p", "m")};
 
-	@if ($orientation == "all") {
+	@if ($orientation == "") {
+		@each $sideShorthand, $side in $sides {
+			.fw-#{$propertyShorthand}-#{$selectorSize} {
+				#{$property}: $value;
+			}
+		}
+	} @else @if ($orientation == "all-sides") {
 		$sides: (
 			"t": "top",
 			"l": "left",

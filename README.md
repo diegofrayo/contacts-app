@@ -15,8 +15,10 @@ App for learning purposes
 
 ## Important features
 
-- DAO design pattern for data accessing | **[Source code](https://github.com/diegofrayo/contacts-app/tree/main/src/data/contacts)**
-	- **[DAO Design Pattern | DigitalOcean | [digitalocean.com]](https://digitalocean.com/community/tutorials/dao-design-pattern)**
+- Strategy pattern for data accessing | **[Source code](https://github.com/diegofrayo/contacts-app/tree/main/src/data/contacts)**
+	- **[Strategy | [refactoring.guru]](https://refactoring.guru/design-patterns/strategy)**
+- Singleton pattern | **[Source code](https://github.com/diegofrayo/contacts-app/blob/main/src/lib/ryakt.ts)**
+	- **[Strategy | [refactoring.guru]](https://refactoring.guru/design-patterns/strategy)**
 - **[zod](https://github.com/colinhacks/zod)** for type validations
 
 ## Resources
