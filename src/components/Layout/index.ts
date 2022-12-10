@@ -36,7 +36,7 @@ function Layout() {
 
 	return Ryakt.createElement("div", { className: "Layout" }, [children], {
 		didMount: function LayoutDidMount() {
-			Contacts.loadDefaultData();
+			return Contacts.loadDefaultData();
 		},
 	});
 }

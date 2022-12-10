@@ -1,3 +1,4 @@
+import { resolvePromisesSequentially } from "~/utils/misc";
 import type { U_Unshift } from "~/types";
 
 import v from "./validator";
@@ -11,7 +12,7 @@ type T_CreateElementPropsParam = {
 	onChange?: T_DOMEventHandler;
 	onKeyUp?: T_DOMEventHandler;
 } | null;
-type T_DidMountMethod = () => void;
+type T_DidMountMethod = () => unknown | Promise<unknown>;
 
 class Ryakt {
 	private static instance: Ryakt;
@@ -121,10 +122,8 @@ class Ryakt {
 		this.DOMEventsListeners = [];
 	};
 
-	private executeDidMountMethods = () => {
-		this.didMountMethods.reverse().forEach((method) => {
-			method();
-		});
+	private executeDidMountMethods = async () => {
+		resolvePromisesSequentially(this.didMountMethods.reverse());
 
 		this.didMountMethods = [];
 	};
