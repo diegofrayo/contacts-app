@@ -1,40 +1,37 @@
-import SearchInput from "~/components/SearchInput";
 import ContactsList from "~/components/ContactsList";
+import CreateContactModal from "~/components/CreateContactModal";
+import SearchInput from "~/components/SearchInput";
 import Separator from "~/components/Separator";
 import Contacts from "~/data/contacts";
 import Ryakt from "~/lib/ryakt";
-import Modal from "../Modal";
 
 function Layout() {
-	function showClick(e: Event): void {
+	function handleCreateContactClick(e: Event): void {
 		e.preventDefault();
-		document.querySelector(".modal")?.classList.toggle("show");
-		const target = e.target as HTMLElement;
-		const btn = document.querySelector(".heading__add-button") as HTMLElement;
-		if (target.innerText === "+") {
-			btn.innerHTML = "&#215;";
-		} else {
-			btn.innerHTML = "&#43;";
-		}
+
+		// TODO: [Diego] Use EventManager to accomplish this
+		document.querySelector(".CreateContactModal")?.classList.toggle("show");
 	}
 
 	const children = `
-		<div class="heading">
+		<header class="header">
 			<h2 class="fw-text-center fw-mb-10">Contacts</h2>
-			<div class="heading__heading-button">
+			<div class="header__create-contact">
 			${Ryakt.createElement(
-				"span",
-				{ className: "heading__add-button", onClick: [".heading__add-button", showClick] },
-				["&#43;"],
+				"button",
+				{
+					className: "header__create-contact__button",
+					onClick: [".header__create-contact__button", handleCreateContactClick],
+				},
+				["+"],
 			)}
 			</div>
+ 		</header>
 
- 		</div>
 		${SearchInput()}
 		${Separator({ size: 2 })}
 		${ContactsList()}
-		${Modal()}
-
+		${CreateContactModal()}
   `;
 
 	return Ryakt.createElement("div", { className: "Layout" }, [children], {

@@ -4,15 +4,18 @@
 	padding: 1.5rem 2rem;
 	width: 380px;
 
-	.heading {
-		display: flex;
-		justify-content: space-between;
+	.header {
 		align-content: center;
+		display: flex;
 		gap: 10px;
-		.heading__add-button {
+		justify-content: space-between;
+
+		&__create-contact__button {
+			background-color: transparent;
+			border: 0;
+			cursor: pointer;
 			font-size: 2rem;
 			line-height: 40px;
-			cursor: pointer;
 			user-select: none;
 		}
 	}

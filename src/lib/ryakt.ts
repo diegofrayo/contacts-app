@@ -45,7 +45,7 @@ class Ryakt {
 			Object.entries(props).forEach(([key, value]) => {
 				if (key === "className") {
 					Element.classList.add(...String(value).split(" "));
-					// TODO: Create regex for event handlers (2)
+					// TODO: [Diego] Create regex for event handlers (2)
 				} else if (key === "onClick") {
 					this.addDOMEventListener(["click", ...(value as T_DOMEventHandler)]);
 				} else if (key === "onChange") {
@@ -73,7 +73,7 @@ class Ryakt {
 		}
 
 		return {
-			// TODO: Try to use symbols to identify this kind of objects (3)
+			// TODO: [Diego] Try to use symbols to identify this kind of objects (3)
 			isRyaktElement: true,
 			element: Element,
 			render: function render() {
@@ -133,7 +133,7 @@ export default Ryakt.getInstance();
 
 // --- Types ---
 
-// TODO: Remove any (2)
+// TODO: [Diego] Remove any (2)
 export type T_RyaktComponent = (props?: any) => T_RyaktElement;
 
 export type T_RyaktElement = {
