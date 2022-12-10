@@ -1,3 +1,4 @@
+import v from "~/lib/validator";
 import { T_Object } from "~/types";
 
 import IContactsStrategy from "./interface";
@@ -15,7 +16,11 @@ class ContactsContext {
 	}
 
 	async loadDefaultData() {
-		return this.strategy.loadDefaultData();
+		const contacts = await this.getAll();
+
+		if (v.isEmptyArray(contacts)) {
+			this.strategy.loadDefaultData();
+		}
 	}
 
 	async create(rawContact: T_Object) {

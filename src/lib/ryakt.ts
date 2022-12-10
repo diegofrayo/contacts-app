@@ -1,3 +1,4 @@
+import { resolvePromisesSequentially } from "~/utils/misc";
 import type { U_Unshift } from "~/types";
 
 import v from "./validator";
@@ -11,7 +12,7 @@ type T_CreateElementPropsParam = {
 	onChange?: T_DOMEventHandler;
 	onKeyUp?: T_DOMEventHandler;
 } | null;
-type T_DidMountMethod = () => void;
+type T_DidMountMethod = () => unknown | Promise<unknown>;
 
 class Ryakt {
 	private static instance: Ryakt;
@@ -37,7 +38,10 @@ class Ryakt {
 		element: string,
 		props: T_CreateElementPropsParam,
 		children?: (T_RyaktElement | string)[],
-		options?: { didMount: T_DidMountMethod; isRootElement?: true },
+		options?: {
+			didMount?: T_DidMountMethod;
+			DOMEventsListeners?: T_DOMEventHandlerWithEventName[];
+		},
 	): T_RyaktElement => {
 		const Element = document.createElement(element);
 
@@ -45,7 +49,7 @@ class Ryakt {
 			Object.entries(props).forEach(([key, value]) => {
 				if (key === "className") {
 					Element.classList.add(...String(value).split(" "));
-					// TODO: Create regex for event handlers (2)
+					// TODO: [Diego] Create regex for event handlers (2)
 				} else if (key === "onClick") {
 					this.addDOMEventListener(["click", ...(value as T_DOMEventHandler)]);
 				} else if (key === "onChange") {
@@ -72,8 +76,14 @@ class Ryakt {
 			this.addDidMountMethod(options.didMount);
 		}
 
+		if (options?.DOMEventsListeners) {
+			options.DOMEventsListeners.forEach((listener) => {
+				this.addDOMEventListener(listener);
+			});
+		}
+
 		return {
-			// TODO: Try to use symbols to identify this kind of objects (3)
+			// TODO: [Diego] Try to use symbols to identify this kind of objects (3)
 			isRyaktElement: true,
 			element: Element,
 			render: function render() {
@@ -112,10 +122,8 @@ class Ryakt {
 		this.DOMEventsListeners = [];
 	};
 
-	private executeDidMountMethods = () => {
-		this.didMountMethods.reverse().forEach((method) => {
-			method();
-		});
+	private executeDidMountMethods = async () => {
+		resolvePromisesSequentially(this.didMountMethods.reverse());
 
 		this.didMountMethods = [];
 	};
@@ -133,7 +141,7 @@ export default Ryakt.getInstance();
 
 // --- Types ---
 
-// TODO: Remove any (2)
+// TODO: [Diego] Remove any (2)
 export type T_RyaktComponent = (props?: any) => T_RyaktElement;
 
 export type T_RyaktElement = {

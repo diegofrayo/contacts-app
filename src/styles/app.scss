@@ -1,8 +1,10 @@
 // Global
+@use "./normalize.scss";
 @use "./global.scss";
 @use "./fw/_main.scss";
 
 // Components
 @use "../components/ContactsList/ContactsList.scss";
+@use "../components/CreateContactModal/CreateContactModal.scss";
 @use "../components/Layout/Layout.scss";
 @use "../components/SearchInput/SearchInput.scss";
