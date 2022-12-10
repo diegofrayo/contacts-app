@@ -37,7 +37,10 @@ class Ryakt {
 		element: string,
 		props: T_CreateElementPropsParam,
 		children?: (T_RyaktElement | string)[],
-		options?: { didMount: T_DidMountMethod; isRootElement?: true },
+		options?: {
+			didMount?: T_DidMountMethod;
+			DOMEventsListeners?: T_DOMEventHandlerWithEventName[];
+		},
 	): T_RyaktElement => {
 		const Element = document.createElement(element);
 
@@ -70,6 +73,12 @@ class Ryakt {
 
 		if (options?.didMount) {
 			this.addDidMountMethod(options.didMount);
+		}
+
+		if (options?.DOMEventsListeners) {
+			options.DOMEventsListeners.forEach((listener) => {
+				this.addDOMEventListener(listener);
+			});
 		}
 
 		return {

@@ -1,9 +1,15 @@
 import Ryakt from "~/lib/ryakt";
 
 function CreateContactModal() {
-	// TODO: [David] The modal has to have a close button on the right corner
+	// handlers
+	function handleCloseClick(): void {
+		// TODO: [Diego] Use EventManager to accomplish this
+		document.querySelector(".CreateContactModal")?.classList.remove("show");
+	}
+
 	const children = `
 		<div class="CreateContactModal__content">
+			<button class="CreateContactModal__content__close-btn">x</button>
 			<h2 class="CreateContactModal__content__title">Add Contact</h2>
 			<form class="CreateContactModal__content__form">
 				<input type="text" class="CreateContactModal__content__form__input CreateContactModal__content__form__input--name" placeholder="Name" />
@@ -17,7 +23,9 @@ function CreateContactModal() {
 		</div>
 	`;
 
-	return Ryakt.createElement("div", { className: "CreateContactModal" }, [children]);
+	return Ryakt.createElement("div", { className: "CreateContactModal" }, [children], {
+		DOMEventsListeners: [["click", ".CreateContactModal__content__close-btn", handleCloseClick]],
+	});
 }
 
 export default CreateContactModal;

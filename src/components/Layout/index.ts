@@ -14,8 +14,8 @@ function Layout() {
 	}
 
 	const children = `
-		<header class="header">
-			<h2 class="fw-text-center fw-mb-10">Contacts</h2>
+		<header class="header fw-mb-6">
+			<h2 class="fw-text-center">Contacts</h2>
 			<div class="header__create-contact">
 			${Ryakt.createElement(
 				"button",
