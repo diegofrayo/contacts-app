@@ -14,15 +14,15 @@ type T_CreateElementPropsParam = {
 type T_DidMountMethod = () => void;
 
 class Ryakt {
+	private static instance: Ryakt;
 	private DOMEventsListeners: T_DOMEventHandlerWithEventName[];
 	private didMountMethods: T_DidMountMethod[];
-	private static instance: Ryakt;
-	private isAppRendered: boolean;
+	private isAppAlreadyRendered: boolean;
 
 	constructor() {
 		this.DOMEventsListeners = [];
 		this.didMountMethods = [];
-		this.isAppRendered = false;
+		this.isAppAlreadyRendered = false;
 	}
 
 	static getInstance = () => {
@@ -90,14 +90,14 @@ class Ryakt {
 			throw new Error("Invalid target");
 		}
 
-		if (this.isAppRendered === true) {
+		if (v.isTrue(this.isAppAlreadyRendered)) {
 			throw new Error("App already rendered, you can't render the app multiple times");
 		}
 
 		target.appendChild(element.element);
 		this.attachDOMEventsListeners();
 		this.executeDidMountMethods();
-		this.isAppRendered = true;
+		this.isAppAlreadyRendered = true;
 	}
 
 	private attachDOMEventsListeners = () => {
