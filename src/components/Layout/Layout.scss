@@ -1,18 +1,17 @@
 .Layout {
 	background: linear-gradient(to left, #ab7adc 0%, #f9edf1 100%);
 	border-radius: 20px;
-	padding: 1.5rem 2rem;
+	padding: 2rem;
 	width: 380px;
 
-	.heading {
-		display: flex;
-		justify-content: space-between;
+	.header {
 		align-content: center;
+		display: flex;
 		gap: 10px;
-		.heading__add-button {
+		justify-content: space-between;
+
+		&__create-contact__button {
 			font-size: 2rem;
-			line-height: 40px;
-			cursor: pointer;
 			user-select: none;
 		}
 	}

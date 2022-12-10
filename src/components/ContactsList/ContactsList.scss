@@ -3,6 +3,10 @@
 		&__item {
 			margin-bottom: 1rem;
 
+			&:last-child {
+				margin-bottom: 0;
+			}
+
 			&__header {
 				align-items: center;
 				display: flex;
