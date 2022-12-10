@@ -7,7 +7,7 @@ App for learning purposes
 1. Clone the repo: `git clone https://github.com/diegofrayo/contacts-app.git`
 1. Install dependencies: `npm install`
 1. Build the project by first time and keep watching when any TypeScript or SCSS file changes: `npm run watch`
-1. Open the app on the browser: `npm run dev` or open `public/index.html` file using **[Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)**
+1. Open the app on the browser: `npm run dev` or open `public/index.html` using **[Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)**
 
 ## Live demo
 
