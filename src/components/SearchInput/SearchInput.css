@@ -1,0 +1,19 @@
+.SearchInput__input {
+	background-color: #fff;
+	border-radius: 24px;
+	border: none;
+	color: #3a3a3a;
+	letter-spacing: 1px;
+	outline: none;
+	padding: 0.8rem 0 0.8rem 0.8rem;
+	width: 100%;
+}
+.SearchInput__input::-moz-placeholder {
+	color: #3a3a3a;
+}
+.SearchInput__input:-ms-input-placeholder {
+	color: #3a3a3a;
+}
+.SearchInput__input::placeholder {
+	color: #3a3a3a;
+} /*# sourceMappingURL=SearchInput.css.map */

@@ -3,4 +3,17 @@
 	border-radius: 20px;
 	padding: 1.5rem 2rem;
 	width: 380px;
+
+	.heading {
+		display: flex;
+		justify-content: space-between;
+		align-content: center;
+		gap: 10px;
+		.heading__add-button {
+			font-size: 2rem;
+			line-height: 40px;
+			cursor: pointer;
+			user-select: none;
+		}
+	}
 }
