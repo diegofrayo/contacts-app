@@ -1,5 +1,5 @@
 export default {
-	ON_INPUT_SEARCH_CHANGE: "ON_INPUT_SEARCH_CHANGE" as T_EventId,
+	REFRESH_CONTACTS_LIST: "REFRESH_CONTACTS_LIST" as T_EventId,
 
 	dispatchEvent<G_Payload>(eventId: T_EventId, payload: G_Payload) {
 		const action = new CustomEvent(eventId, {
@@ -22,4 +22,4 @@ export default {
 
 // --- Types ---
 
-type T_EventId = "ON_INPUT_SEARCH_CHANGE";
+type T_EventId = "REFRESH_CONTACTS_LIST";

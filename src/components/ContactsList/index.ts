@@ -1,5 +1,4 @@
 import classNames from "classnames";
-
 import Contacts from "~/data/contacts";
 import Ryakt from "~/lib/ryakt";
 import v from "~/lib/validator";
@@ -7,7 +6,7 @@ import EventsManager from "~/utils/events-manager";
 
 function ContactsList() {
 	EventsManager.addEventListener(
-		EventsManager.ON_INPUT_SEARCH_CHANGE,
+		EventsManager.REFRESH_CONTACTS_LIST,
 		async function onInputSearchChange(event: CustomEvent<string>) {
 			renderContacts(event.detail);
 		},
@@ -64,7 +63,7 @@ async function renderContacts(filter?: string) {
 									"ContactsList__list__item__header",
 									showDetails && "fw-cursor-pointer",
 								)}">
-									<img class="ContactsList__list__item__header__avatar" src=${contact.avatar} />
+									<img class="ContactsList__list__item__header__avatar" src="assets/images/avatar.svg" />
 									<div class="ContactsList__list__item__header__details">
 										<span class="ContactsList__list__item__header__details__name">${contact.name}</span>
 										${

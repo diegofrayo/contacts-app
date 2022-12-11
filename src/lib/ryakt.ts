@@ -108,8 +108,8 @@ class Ryakt {
 		}
 
 		target.appendChild(element.element);
-		this.executeDidMountMethods();
 		this.attachDOMEventsListeners();
+		this.executeDidMountMethods();
 		this.isAppAlreadyRendered = true;
 	}
 

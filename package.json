@@ -21,6 +21,7 @@
 	"devDependencies": {
 		"@babel/preset-env": "^7.20.2",
 		"@types/node": "^18.11.10",
+		"@types/uuid": "^9.0.0",
 		"babel-plugin-module-resolver": "^4.1.0",
 		"babelify": "^10.0.0",
 		"browserify": "^17.0.0",
@@ -40,6 +41,7 @@
 	},
 	"dependencies": {
 		"classnames": "^2.3.2",
+		"uuid": "^9.0.0",
 		"zod": "^3.19.1"
 	}
 }

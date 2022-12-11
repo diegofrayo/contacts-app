@@ -46,10 +46,11 @@ function watch() {
 }
 
 exports.default = gulp.series([...buildProject(), watch]);
-exports.buildHTML = buildHTML;
 exports.buildCSS = gulp.series([cleanCSS, buildCSS]);
+exports.buildHTML = buildHTML;
 exports.buildJS = gulp.series([cleanJS, buildJSNonWatchify]);
 exports.buildProject = gulp.series(buildProject());
+exports.copyAllFiles = copyAllFiles;
 exports.watch = watch;
 
 // --- Utils ---
