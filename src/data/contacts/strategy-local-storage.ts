@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 import v from "~/lib/validator";
 import type { T_Object } from "~/types";
 
@@ -14,7 +16,7 @@ class ContactsLocalStorageStrategy implements IContactsStrategy {
 
 	async create(rawContact: T_Object) {
 		const contacts = await this.getAll();
-		const newContact = new Contact(rawContact);
+		const newContact = new Contact({ ...rawContact, id: uuidv4() });
 
 		contacts.push(newContact);
 		this.write(contacts);
@@ -36,6 +38,7 @@ class ContactsLocalStorageStrategy implements IContactsStrategy {
 
 		const deletedContact = contacts[contactToDeleteIndex];
 		contacts.splice(contactToDeleteIndex, 1);
+		this.write(contacts);
 
 		return deletedContact;
 	}
@@ -67,33 +70,27 @@ const DEFAULT_CONTACTS: T_Contact[] = [
 	{
 		id: "2b9450c1-c2f8-423d-bad8-798a34e9145e",
 		name: "Leos Adate",
-		avatar: "assets/images/person-1.jpg",
 		tel: "+1 505-644-0802",
 		instagram: "kaarot",
-		twitter: "potus",
 		whatsApp: "",
 		mail: "potus@gmail.com",
 	},
 	{
 		id: "0e72573a-3c63-4b01-8c7c-22da49100425",
 		name: "Ocia Gigri",
-		avatar: "assets/images/person-2.jpg",
 		tel: "+1 813-688-9510",
 		instagram: "",
-		twitter: "",
 		whatsApp: "+1 813-688-9510",
 		mail: "gigri@gmail.com",
 	},
 	{
 		id: "3a08ff0e-c1ae-47c1-b51f-1b8950eecfe0",
 		name: "Cicella Anders",
-		avatar: "assets/images/person-3.jpg",
 		tel: "+1 203-448-7916",
 	},
 	{
 		id: "6189f7b7-fdd9-42cc-9d0f-9b4e00e710d7",
 		name: "Liona Balon",
-		avatar: "assets/images/person-4.jpg",
 		tel: "+1 412-632-3247",
 	},
 ];
