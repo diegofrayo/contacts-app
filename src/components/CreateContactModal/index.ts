@@ -1,43 +1,26 @@
 import Ryakt from "~/lib/ryakt";
 import Contacts from "~/data/contacts";
 import EventsManager from "~/utils/events-manager";
-import type { T_Contact } from "~/data/contacts/model";
 
 function CreateContactModal() {
-	// vars
-	let contact: T_Contact = {
-		id: "",
-		name: "",
-		tel: "",
-		avatar: "",
-		instagram: "",
-		mail: "",
-		twitter: "",
-		whatsApp: "",
-	};
-
 	// handlers
-	function onFormInputKeyUpHandler(event: Event) {
-		let target = event.target as HTMLInputElement;
-
-		contact = {
-			id: "",
-			avatar: target.value,
-			instagram: target.value,
-			mail: target.value,
-			name: target.value,
-			tel: target.value,
-			twitter: target.value,
-			whatsApp: target.value,
-		};
-	}
-
 	async function onSubmitHandler(event: Event) {
 		event.preventDefault();
-		await Contacts.create(contact);
-		await Contacts.getAll();
+
+		const form = event.target as HTMLFormElement;
+		const newContact = {
+			id: "",
+			name: form["contact-name"].value,
+			instagram: form["instagram"].value,
+			mail: form["mail"].value,
+			tel: form["tel"].value,
+			whatsapp: form["whatsapp"].value,
+		};
+
+		await Contacts.create(newContact);
 		EventsManager.dispatchEvent(EventsManager.REFRESH_CONTACTS_LIST, "");
 		handleCloseClick();
+		form.reset();
 	}
 
 	function handleCloseClick(): void {
@@ -49,8 +32,8 @@ function CreateContactModal() {
 		<div class="CreateContactModal__content">
 			<button class="CreateContactModal__content__close-btn">x</button>
 			<h2 class="CreateContactModal__content__title">Add Contact</h2>
-			<form class="CreateContactModal__content__form">
-				<input name="name" type="text" class="CreateContactModal__content__form__input CreateContactModal__content__form__input--name" placeholder="Name" />
+			<form name="create-contact-form" class="CreateContactModal__content__form">
+				<input name="contact-name" type="text" class="CreateContactModal__content__form__input CreateContactModal__content__form__input--name" placeholder="Name" />
 				<input name="avatar" type="file" hidden />
 				<input name="tel" type="text" class="CreateContactModal__content__form__input CreateContactModal__content__form__input--tel" placeholder="Telephone" />
 				<input name="instagram" type="text" class="CreateContactModal__content__form__input CreateContactModal__content__form__input--instagram" placeholder="Instagram" />
@@ -65,7 +48,6 @@ function CreateContactModal() {
 		DOMEventsListeners: [
 			["click", ".CreateContactModal__content__close-btn", handleCloseClick],
 			["submit", ".CreateContactModal__content__form", onSubmitHandler],
-			["keyup", ".CreateContactModal__content__form__input", onFormInputKeyUpHandler],
 		],
 	});
 }

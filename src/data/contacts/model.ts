@@ -8,7 +8,6 @@ class Contact {
 	public avatar;
 	public tel;
 	public instagram;
-	public twitter;
 	public whatsApp;
 	public mail;
 
@@ -20,7 +19,6 @@ class Contact {
 		this.avatar = parsedContact.avatar;
 		this.tel = parsedContact.tel;
 		this.instagram = parsedContact.instagram;
-		this.twitter = parsedContact.twitter;
 		this.whatsApp = parsedContact.whatsApp;
 		this.mail = parsedContact.mail;
 	}
@@ -36,7 +34,6 @@ const Schema = z.object({
 	avatar: z.optional(z.string()),
 	tel: z.optional(z.string()),
 	instagram: z.optional(z.string()),
-	twitter: z.optional(z.string()),
 	whatsApp: z.optional(z.string()),
 	mail: z.optional(z.string()),
 });

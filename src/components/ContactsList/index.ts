@@ -1,4 +1,5 @@
 import classNames from "classnames";
+
 import Contacts from "~/data/contacts";
 import Ryakt from "~/lib/ryakt";
 import v from "~/lib/validator";
@@ -51,7 +52,6 @@ async function renderContacts(filter?: string) {
 			${filterContacts()
 				.map((contact) => {
 					const showDetails =
-						v.isNotEmptyString(contact.twitter) ||
 						v.isNotEmptyString(contact.instagram) ||
 						v.isNotEmptyString(contact.whatsApp) ||
 						v.isNotEmptyString(contact.mail);
@@ -93,14 +93,6 @@ async function renderContacts(filter?: string) {
 									"ContactsList__list__item__extra-info",
 									showDetails ? "fw-block" : "fw-hidden",
 								)}">
-									${
-										v.isNotEmptyString(contact.twitter)
-											? `
-											<p class="ContactsList__list__item__extra-info__item">
-												<b>Twitter:</b> <a href="https://twitter.com/${contact.twitter}" target="_blank">@${contact.twitter}</a>
-											</p>`
-											: ""
-									}
 									${
 										v.isNotEmptyString(contact.instagram)
 											? `
