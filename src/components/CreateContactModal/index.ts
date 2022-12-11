@@ -4,6 +4,7 @@ import EventsManager from "~/utils/events-manager";
 import type { T_Contact } from "~/data/contacts/model";
 
 function CreateContactModal() {
+	// vars
 	let contact: T_Contact = {
 		id: "",
 		name: "",
@@ -15,6 +16,7 @@ function CreateContactModal() {
 		whatsApp: "",
 	};
 
+	// handlers
 	function onFormInputKeyUpHandler(event: Event) {
 		let target = event.target as HTMLInputElement;
 

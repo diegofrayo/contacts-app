@@ -12,11 +12,12 @@ App for learning purposes
 
 ## Live demo
 
-**[demo-contacts-app.vercel.app](https://demo-contacts-app.vercel.app)**
+- Production:  **[demo-contacts-app.vercel.app](https://demo-contacts-app.vercel.app)**
+- Development: **[demo-contacts-app-preview.vercel.app](https://demo-contacts-app-preview.vercel.app)**
 
 ## Important features
 
-- Strategy pattern for data accessing | **[Source code](https://github.com/diegofrayo/contacts-app/tree/main/src/data/contacts)**
+- Strategy pattern for data management | **[Source code](https://github.com/diegofrayo/contacts-app/tree/main/src/data/contacts)**
 	- **[Strategy | [refactoring.guru]](https://refactoring.guru/design-patterns/strategy)**
 - Singleton pattern | **[Source code](https://github.com/diegofrayo/contacts-app/blob/main/src/lib/ryakt.ts)**
 	- **[Singleton | [refactoring.guru]](https://refactoring.guru/design-patterns/singleton)**
