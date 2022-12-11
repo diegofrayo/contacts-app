@@ -50,12 +50,12 @@ async function renderContacts(filter?: string) {
 	const children = `
 		<ul class="ContactsList__list">
 			${filterContacts()
-				.map((person) => {
+				.map((contact) => {
 					const showDetails =
-						v.isNotEmptyString(person.twitter) ||
-						v.isNotEmptyString(person.instagram) ||
-						v.isNotEmptyString(person.whatsApp) ||
-						v.isNotEmptyString(person.mail);
+						v.isNotEmptyString(contact.twitter) ||
+						v.isNotEmptyString(contact.instagram) ||
+						v.isNotEmptyString(contact.whatsApp) ||
+						v.isNotEmptyString(contact.mail);
 
 					return `
 						<li class="ContactsList__list__item">
@@ -64,26 +64,28 @@ async function renderContacts(filter?: string) {
 									"ContactsList__list__item__header",
 									showDetails && "fw-cursor-pointer",
 								)}">
-									<img class="ContactsList__list__item__header__avatar" src=${person.avatar} />
+									<img class="ContactsList__list__item__header__avatar" src=${contact.avatar} />
 									<div class="ContactsList__list__item__header__details">
-										<span class="ContactsList__list__item__header__details__name">${person.name}</span>
+										<span class="ContactsList__list__item__header__details__name">${contact.name}</span>
 										${
-											v.isNotEmptyString(person.tel)
+											v.isNotEmptyString(contact.tel)
 												? Ryakt.createElement(
 														"a",
 														{
-															href: `tel:${person.tel}`,
+															href: `tel:${contact.tel}`,
 															className: "ContactsList__list__item__header__details__tel",
 															onClick: [
 																".ContactsList__list__item__header__details__tel",
 																handleTelClick,
 															],
 														},
-														[person.tel],
+														[contact.tel],
 												  )
 												: ""
 										}
-									<button class="fw-absolute fw-top-1 fw-right-1 fw-p-1 fw-font-bold">
+									<button class="ContactsList__list__item__header__delete-btn fw-absolute fw-top-1 fw-right-1 fw-p-1 fw-font-bold" data-contact-id="${
+										contact.id
+									}">
 										x
 									</button>
 									</div>
@@ -93,34 +95,34 @@ async function renderContacts(filter?: string) {
 									showDetails ? "fw-block" : "fw-hidden",
 								)}">
 									${
-										v.isNotEmptyString(person.twitter)
+										v.isNotEmptyString(contact.twitter)
 											? `
 											<p class="ContactsList__list__item__extra-info__item">
-												<b>Twitter:</b> <a href="https://twitter.com/${person.twitter}" target="_blank">@${person.twitter}</a>
+												<b>Twitter:</b> <a href="https://twitter.com/${contact.twitter}" target="_blank">@${contact.twitter}</a>
 											</p>`
 											: ""
 									}
 									${
-										v.isNotEmptyString(person.instagram)
+										v.isNotEmptyString(contact.instagram)
 											? `
 											<p class="ContactsList__list__item__extra-info__item">
-												<b>Instagram:</b> <a href="https://instagram.com/${person.instagram}" target="_blank">@${person.instagram}</a>
+												<b>Instagram:</b> <a href="https://instagram.com/${contact.instagram}" target="_blank">@${contact.instagram}</a>
 											</p>`
 											: ""
 									}
 									${
-										v.isNotEmptyString(person.whatsApp)
+										v.isNotEmptyString(contact.whatsApp)
 											? `
 											<p class="ContactsList__list__item__extra-info__item">
-												<b>WhatsApp:</b> <a href="https://api.whatsapp.com/send?phone=&${person.whatsApp}&text=Hi" target="_blank">${person.whatsApp}</a>
+												<b>WhatsApp:</b> <a href="https://api.whatsapp.com/send?phone=&${contact.whatsApp}&text=Hi" target="_blank">${contact.whatsApp}</a>
 											</p>`
 											: ""
 									}
 									${
-										v.isNotEmptyString(person.mail)
+										v.isNotEmptyString(contact.mail)
 											? `
 											<p class="ContactsList__list__item__extra-info__item">
-												<b>Mail</b>: <a href="mailto:${person.mail}" target="_blank">${person.mail}</a>
+												<b>Mail</b>: <a href="mailto:${contact.mail}" target="_blank">${contact.mail}</a>
 											</p>`
 											: ""
 									}
@@ -133,5 +135,17 @@ async function renderContacts(filter?: string) {
 		</ul>
 	`;
 
-	document.querySelectorAll(".ContactsList")[0].innerHTML = children;
+	// TODO: [Diego] Read this (https://bobbyhadz.com/blog/typescript-left-hand-side-of-assignment-not-optional#:~:text=The%20error%20%22The%20left%2Dhand,as%20a%20type%20guard%20instead.)
+	document.querySelector(".ContactsList")!.innerHTML = children;
+	document.querySelectorAll(".ContactsList__list__item__header__delete-btn").forEach((element) => {
+		element.addEventListener("click", async function handleDeleteContactClick(event: Event) {
+			// TODO: [Diego] it's possible to avoid this "as"
+			const contactId =
+				(event.currentTarget as HTMLButtonElement).getAttribute("data-contact-id") || "";
+
+			await Contacts.deleteById(contactId);
+
+			renderContacts();
+		});
+	});
 }

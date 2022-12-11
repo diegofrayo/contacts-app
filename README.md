@@ -6,7 +6,8 @@ App for learning purposes
 
 1. Clone the repo: `git clone https://github.com/diegofrayo/contacts-app.git`
 1. Install dependencies: `npm install`
-1. Build the project by first time and keep watching when any TypeScript or SCSS file changes: `npm run watch`
+1. Build the project: `npm run build`
+1. Start a watcher to compile sass/ts files when any file of these types change: `npm run watch`
 1. Open the app on the browser: `npm run dev` or open `public/index.html` using **[Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)**
 
 ## Live demo
@@ -18,7 +19,7 @@ App for learning purposes
 - Strategy pattern for data accessing | **[Source code](https://github.com/diegofrayo/contacts-app/tree/main/src/data/contacts)**
 	- **[Strategy | [refactoring.guru]](https://refactoring.guru/design-patterns/strategy)**
 - Singleton pattern | **[Source code](https://github.com/diegofrayo/contacts-app/blob/main/src/lib/ryakt.ts)**
-	- **[Strategy | [refactoring.guru]](https://refactoring.guru/design-patterns/strategy)**
+	- **[Singleton | [refactoring.guru]](https://refactoring.guru/design-patterns/singleton)**
 - **[zod](https://github.com/colinhacks/zod)** for type validations
 
 ## Resources

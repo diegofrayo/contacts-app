@@ -4,7 +4,10 @@ import type { U_Unshift } from "~/types";
 import v from "./validator";
 
 type T_DOMEventHandler = [selector: string, handler: (ev: Event) => void];
-type T_DOMEventHandlerWithEventName = U_Unshift<"click" | "change" | "keyup", T_DOMEventHandler>;
+type T_DOMEventHandlerWithEventName = U_Unshift<
+	"click" | "change" | "keyup" | "submit",
+	T_DOMEventHandler
+>;
 type T_CreateElementPropsParam = {
 	[key: string]: unknown;
 	className?: string;
@@ -105,8 +108,8 @@ class Ryakt {
 		}
 
 		target.appendChild(element.element);
-		this.attachDOMEventsListeners();
 		this.executeDidMountMethods();
+		this.attachDOMEventsListeners();
 		this.isAppAlreadyRendered = true;
 	}
 

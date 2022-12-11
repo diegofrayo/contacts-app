@@ -36,6 +36,7 @@ class ContactsLocalStorageStrategy implements IContactsStrategy {
 
 		const deletedContact = contacts[contactToDeleteIndex];
 		contacts.splice(contactToDeleteIndex, 1);
+		this.write(contacts);
 
 		return deletedContact;
 	}
