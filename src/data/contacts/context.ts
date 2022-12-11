@@ -32,7 +32,7 @@ class ContactsContext {
 		console.time("ContactsContext.getAll");
 		const response = await this.strategy.getAll();
 		console.timeEnd("ContactsContext.getAll");
-
+ 
 		return response;
 	}
 

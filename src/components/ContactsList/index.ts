@@ -1,5 +1,4 @@
 import classNames from "classnames";
-
 import Contacts from "~/data/contacts";
 import Ryakt from "~/lib/ryakt";
 import v from "~/lib/validator";
@@ -9,6 +8,7 @@ function ContactsList() {
 	EventsManager.addEventListener(
 		EventsManager.ON_INPUT_SEARCH_CHANGE,
 		async function onInputSearchChange(event: CustomEvent<string>) {
+			console.log(event.detail)
 			renderContacts(event.detail);
 		},
 	);
@@ -24,7 +24,7 @@ export default ContactsList;
 
 // --- Utils ---
 
-async function renderContacts(filter?: string) {
+ export async function renderContacts(filter?: string) {
 	// vars
 	const contacts = await Contacts.getAll();
 
