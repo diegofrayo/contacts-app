@@ -39,3 +39,5 @@ const Schema = z.object({
 });
 
 export type T_Contact = z.infer<typeof Schema>;
+
+export type T_CreateContactDTO = Exclude<T_Contact, "id">;

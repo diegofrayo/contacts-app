@@ -14,6 +14,26 @@
 	display: none;
 }
 
+// --- flex ---
+
+.fw-items-center {
+	align-items: center;
+}
+
+.fw-justify-center {
+	justify-content: center;
+}
+
+.fw-justify-end {
+	justify-content: end;
+}
+
+// --- colors ---
+
+.fw-text-red {
+	color: red;
+}
+
 // --- cursor ---
 .fw-cursor-pointer {
 	cursor: pointer;

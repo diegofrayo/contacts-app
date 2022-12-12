@@ -1,6 +1,6 @@
 import Ryakt from "~/lib/ryakt";
-import Contacts from "~/data/contacts";
-import EventsManager from "~/utils/events-manager";
+import Contacts from "~/modules/data/contacts";
+import EventsManager from "~/modules/events-manager";
 
 function CreateContactModal() {
 	// handlers
@@ -18,7 +18,7 @@ function CreateContactModal() {
 		};
 
 		await Contacts.create(newContact);
-		EventsManager.dispatchEvent(EventsManager.REFRESH_CONTACTS_LIST, "");
+		EventsManager.dispatchEvent(EventsManager.events.REFRESH_CONTACTS_LIST, "");
 		handleCloseClick();
 		form.reset();
 	}

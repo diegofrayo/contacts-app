@@ -2,8 +2,8 @@ import ContactsList from "~/components/ContactsList";
 import CreateContactModal from "~/components/CreateContactModal";
 import SearchInput from "~/components/SearchInput";
 import Separator from "~/components/Separator";
-import Contacts from "~/data/contacts";
 import Ryakt from "~/lib/ryakt";
+import Contacts from "~/modules/data/contacts";
 
 function Layout() {
 	function handleCreateContactClick(e: Event): void {

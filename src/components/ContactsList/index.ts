@@ -1,15 +1,14 @@
-import classNames from "classnames";
-
-import Contacts from "~/data/contacts";
+import Separator from "~/components/Separator";
 import Ryakt from "~/lib/ryakt";
 import v from "~/lib/validator";
-import EventsManager from "~/utils/events-manager";
+import Contacts from "~/modules/data/contacts";
+import EventsManager, { T_RefreshContactsListPayload } from "~/modules/events-manager";
 
 function ContactsList() {
-	EventsManager.addEventListener(
-		EventsManager.REFRESH_CONTACTS_LIST,
-		async function onInputSearchChange(event: CustomEvent<string>) {
-			renderContacts(event.detail);
+	EventsManager.addEventListener<T_RefreshContactsListPayload>(
+		EventsManager.events.REFRESH_CONTACTS_LIST,
+		async function onInputSearchChange(payload) {
+			renderContacts(payload);
 		},
 	);
 
@@ -51,7 +50,7 @@ async function renderContacts(filter?: string) {
 		<ul class="ContactsList__list">
 			${filterContacts()
 				.map((contact) => {
-					const showDetails =
+					const contactHasDetails =
 						v.isNotEmptyString(contact.instagram) ||
 						v.isNotEmptyString(contact.whatsApp) ||
 						v.isNotEmptyString(contact.mail);
@@ -59,13 +58,11 @@ async function renderContacts(filter?: string) {
 					return `
 						<li class="ContactsList__list__item">
 							<details class="fw-w-full">
-								<summary class="${classNames(
-									"ContactsList__list__item__header",
-									showDetails && "fw-cursor-pointer",
-								)}">
+								<summary class="ContactsList__list__item__header">
 									<img class="ContactsList__list__item__header__avatar" src="assets/images/avatar.svg" />
 									<div class="ContactsList__list__item__header__details">
-										<span class="ContactsList__list__item__header__details__name">${contact.name}</span>
+										<span class="ContactsList__list__item__header__details__toggle-icon">❯</span>
+										<p class="ContactsList__list__item__header__details__name">${contact.name}</p>
 										${
 											v.isNotEmptyString(contact.tel)
 												? Ryakt.createElement(
@@ -82,41 +79,41 @@ async function renderContacts(filter?: string) {
 												  )
 												: ""
 										}
-									<button class="ContactsList__list__item__header__delete-btn fw-absolute fw-top-1 fw-right-1 fw-p-1 fw-font-bold" data-contact-id="${
-										contact.id
-									}">
-										x
-									</button>
 									</div>
 								</summary>
-								<div class="${classNames(
-									"ContactsList__list__item__extra-info",
-									showDetails ? "fw-block" : "fw-hidden",
-								)}">
-									${
-										v.isNotEmptyString(contact.instagram)
-											? `
-											<p class="ContactsList__list__item__extra-info__item">
-												<b>Instagram:</b> <a href="https://instagram.com/${contact.instagram}" target="_blank">@${contact.instagram}</a>
-											</p>`
-											: ""
-									}
-									${
-										v.isNotEmptyString(contact.whatsApp)
-											? `
-											<p class="ContactsList__list__item__extra-info__item">
-												<b>WhatsApp:</b> <a href="https://api.whatsapp.com/send?phone=&${contact.whatsApp}&text=Hi" target="_blank">${contact.whatsApp}</a>
-											</p>`
-											: ""
-									}
-									${
-										v.isNotEmptyString(contact.mail)
-											? `
-											<p class="ContactsList__list__item__extra-info__item">
-												<b>Mail</b>: <a href="mailto:${contact.mail}" target="_blank">${contact.mail}</a>
-											</p>`
-											: ""
-									}
+								<div class="ContactsList__list__item__extra-info">
+									<div>
+										${
+											v.isNotEmptyString(contact.instagram)
+												? `
+												<p class="ContactsList__list__item__extra-info__item">
+													<b>Instagram:</b> <a href="https://instagram.com/${contact.instagram}" target="_blank">@${contact.instagram}</a>
+												</p>`
+												: ""
+										}
+										${
+											v.isNotEmptyString(contact.whatsApp)
+												? `
+												<p class="ContactsList__list__item__extra-info__item">
+													<b>WhatsApp:</b> <a href="https://api.whatsapp.com/send?phone=&${contact.whatsApp}&text=Hi" target="_blank">${contact.whatsApp}</a>
+												</p>`
+												: ""
+										}
+										${
+											v.isNotEmptyString(contact.mail)
+												? `
+												<p class="ContactsList__list__item__extra-info__item">
+													<b>Mail</b>: <a href="mailto:${contact.mail}" target="_blank">${contact.mail}</a>
+												</p>`
+												: ""
+										}
+									</div>
+									${contactHasDetails ? Separator({ size: 1 }) : ""}
+									<div class="fw-flex fw-items-center fw-justify-end">
+										<button class="ContactsList__list__item__extra-info__delete-btn fw-p-1 fw-font-bold fw-text-red" data-contact-id="${
+											contact.id
+										}">delete</button>
+									</div>
 								</div>
 							</details>
 						</li>
@@ -128,15 +125,17 @@ async function renderContacts(filter?: string) {
 
 	// TODO: [Diego] Read this (https://bobbyhadz.com/blog/typescript-left-hand-side-of-assignment-not-optional#:~:text=The%20error%20%22The%20left%2Dhand,as%20a%20type%20guard%20instead.)
 	document.querySelector(".ContactsList")!.innerHTML = children;
-	document.querySelectorAll(".ContactsList__list__item__header__delete-btn").forEach((element) => {
-		element.addEventListener("click", async function handleDeleteContactClick(event: Event) {
-			// TODO: [Diego] it's possible to avoid this "as"
-			const contactId =
-				(event.currentTarget as HTMLButtonElement).getAttribute("data-contact-id") || "";
+	document
+		.querySelectorAll(".ContactsList__list__item__extra-info__delete-btn")
+		.forEach((element) => {
+			element.addEventListener("click", async function handleDeleteContactClick(event: Event) {
+				// TODO: [Diego] it's possible to avoid this "as"
+				const contactId =
+					(event.currentTarget as HTMLButtonElement).getAttribute("data-contact-id") || "";
 
-			await Contacts.deleteById(contactId);
+				await Contacts.deleteById(contactId);
 
-			renderContacts();
+				renderContacts();
+			});
 		});
-	});
 }

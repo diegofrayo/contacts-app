@@ -1,17 +1,16 @@
 import v from "~/lib/validator";
-import { T_Object } from "~/types";
 
-import IContactsStrategy from "./interface";
-import type { T_Contact } from "./model";
+import IContacts from "./Interface";
+import type { T_Contact, T_CreateContactDTO } from "./Model";
 
 class ContactsContext {
-	private strategy: IContactsStrategy;
+	private strategy: IContacts;
 
-	constructor(strategy: IContactsStrategy) {
+	constructor(strategy: IContacts) {
 		this.strategy = strategy;
 	}
 
-	setStrategy(strategy: IContactsStrategy) {
+	setStrategy(strategy: IContacts) {
 		this.strategy = strategy;
 	}
 
@@ -23,8 +22,8 @@ class ContactsContext {
 		}
 	}
 
-	async create(rawContact: T_Object) {
-		return this.strategy.create(rawContact);
+	async create(newContact: T_CreateContactDTO) {
+		return this.strategy.create(newContact);
 	}
 
 	async getAll(): Promise<T_Contact[]> {

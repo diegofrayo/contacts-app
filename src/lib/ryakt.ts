@@ -1,4 +1,4 @@
-import { resolvePromisesSequentially } from "~/utils/misc";
+import { resolvePromisesSequentially } from "~/utils";
 import type { U_Unshift } from "~/types";
 
 import v from "./validator";

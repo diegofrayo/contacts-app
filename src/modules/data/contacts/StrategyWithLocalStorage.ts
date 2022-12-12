@@ -3,20 +3,46 @@ import { v4 as uuidv4 } from "uuid";
 import v from "~/lib/validator";
 import type { T_Object } from "~/types";
 
-import IContactsStrategy from "./interface";
-import Contact from "./model";
-import type { T_Contact } from "./model";
+import IContactsStrategy from "./Interface";
+import Contact, { T_Contact, T_CreateContactDTO } from "./Model";
 
-class ContactsLocalStorageStrategy implements IContactsStrategy {
+class StrategyWithLocalStorage implements IContactsStrategy {
 	private LOCAL_STORAGE_KEY = "capp_contacts";
 
 	async loadDefaultData() {
-		this.write(DEFAULT_CONTACTS);
+		this.write([
+			{
+				id: "2b9450c1-c2f8-423d-bad8-798a34e9145e",
+				name: "Leos Adate",
+				tel: "+1 505-644-0802",
+				instagram: "kaarot",
+				whatsApp: "",
+				mail: "potus@gmail.com",
+			},
+			{
+				id: "0e72573a-3c63-4b01-8c7c-22da49100425",
+				name: "Ocia Gigri",
+				tel: "+1 813-688-9510",
+				instagram: "",
+				whatsApp: "+1 813-688-9510",
+				mail: "gigri@gmail.com",
+			},
+			{
+				id: "3a08ff0e-c1ae-47c1-b51f-1b8950eecfe0",
+				name: "Cicella Anders",
+				tel: "+1 203-448-7916",
+			},
+			{
+				id: "6189f7b7-fdd9-42cc-9d0f-9b4e00e710d7",
+				name: "Liona Balon",
+				tel: "+1 412-632-3247",
+			},
+		]);
 	}
 
-	async create(rawContact: T_Object) {
+	async create(contact: T_CreateContactDTO) {
 		const contacts = await this.getAll();
-		const newContact = new Contact({ ...rawContact, id: uuidv4() });
+		const newContact = new Contact({ ...contact, id: uuidv4() });
 
 		contacts.push(newContact);
 		this.write(contacts);
@@ -62,35 +88,4 @@ class ContactsLocalStorageStrategy implements IContactsStrategy {
 	}
 }
 
-export default ContactsLocalStorageStrategy;
-
-// --- Data ---
-
-const DEFAULT_CONTACTS: T_Contact[] = [
-	{
-		id: "2b9450c1-c2f8-423d-bad8-798a34e9145e",
-		name: "Leos Adate",
-		tel: "+1 505-644-0802",
-		instagram: "kaarot",
-		whatsApp: "",
-		mail: "potus@gmail.com",
-	},
-	{
-		id: "0e72573a-3c63-4b01-8c7c-22da49100425",
-		name: "Ocia Gigri",
-		tel: "+1 813-688-9510",
-		instagram: "",
-		whatsApp: "+1 813-688-9510",
-		mail: "gigri@gmail.com",
-	},
-	{
-		id: "3a08ff0e-c1ae-47c1-b51f-1b8950eecfe0",
-		name: "Cicella Anders",
-		tel: "+1 203-448-7916",
-	},
-	{
-		id: "6189f7b7-fdd9-42cc-9d0f-9b4e00e710d7",
-		name: "Liona Balon",
-		tel: "+1 412-632-3247",
-	},
-];
+export default StrategyWithLocalStorage;
