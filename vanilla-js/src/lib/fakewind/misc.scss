@@ -1,0 +1,76 @@
+// --- width ---
+
+.fw-w-full {
+	width: 100%;
+}
+
+// --- display ---
+
+.fw-flex {
+	display: flex;
+}
+
+.fw-hidden {
+	display: none;
+}
+
+// --- flex ---
+
+.fw-items-center {
+	align-items: center;
+}
+
+.fw-justify-center {
+	justify-content: center;
+}
+
+.fw-justify-end {
+	justify-content: end;
+}
+
+// --- colors ---
+
+.fw-text-red {
+	color: red;
+}
+
+// --- cursor ---
+.fw-cursor-pointer {
+	cursor: pointer;
+}
+
+// --- text align ---
+
+.fw-text-center {
+	text-align: center;
+}
+
+// --- border ---
+
+.fw-border-0 {
+	border: none;
+}
+
+// --- font ---
+
+.fw-font-bold {
+	font-weight: bold;
+}
+
+// --- position ---
+
+.fw-absolute {
+	position: absolute;
+}
+
+// --- background ---
+
+.fw-bg-transparent {
+	background-color: transparent;
+}
+
+// --- height/width ---
+
+.fw-h-px {
+	height: 1px;
+}

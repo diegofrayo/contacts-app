@@ -1,0 +1,46 @@
+@use "sass:map";
+@use "./utils.scss";
+
+// --- mixins ---
+
+@mixin generate-spacing-classes($property, $selectorValue, $propertyValue) {
+	$propertyShorthand: #{if($property == padding, "p", "m")};
+
+	$sides: (
+		"t": "top",
+		"l": "left",
+		"r": "right",
+		"b": "bottom",
+	);
+
+	@each $sideShorthand, $side in $sides {
+		.fw-#{$propertyShorthand}#{$sideShorthand}-#{$selectorValue} {
+			#{$property}-#{$side}: $propertyValue;
+		}
+	}
+
+	.fw-#{$propertyShorthand}-#{$selectorValue} {
+		#{$property}: $propertyValue;
+	}
+
+	.fw-#{$propertyShorthand}#{x}-#{$selectorValue} {
+		#{$property}-left: $propertyValue;
+		#{$property}-right: $propertyValue;
+	}
+
+	.fw-#{$propertyShorthand}#{y}-#{$selectorValue} {
+		#{$property}-top: $propertyValue;
+		#{$property}-bottom: $propertyValue;
+	}
+}
+
+// --- main ---
+
+@for $i from 0 through (12 + 4) {
+	$result: utils.getScaleValues($i);
+	$selectorValue: map.get($result, "selectorValue");
+	$propertyValue: map.get($result, "value");
+
+	@include generate-spacing-classes(margin, $selectorValue, $propertyValue);
+	@include generate-spacing-classes(padding, $selectorValue, $propertyValue);
+}

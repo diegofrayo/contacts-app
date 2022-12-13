@@ -1,0 +1,6 @@
+*.map
+*.orig
+node_modules/
+package-lock.json
+public/
+src/**/*.css
