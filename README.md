@@ -17,71 +17,7 @@ App for learning purposes
 
 ## Important features
 
-- Strategy pattern for data management | **[Source code](https://github.com/diegofrayo/contacts-app/tree/main/src/data/contacts)**
-	- **[Strategy | [refactoring.guru]](https://refactoring.guru/design-patterns/strategy)**
-- Singleton pattern | **[Source code](https://github.com/diegofrayo/contacts-app/blob/main/src/lib/ryakt.ts)**
-	- **[Singleton | [refactoring.guru]](https://refactoring.guru/design-patterns/singleton)**
-- **[zod](https://github.com/colinhacks/zod)** for type validations
-
-## Resources
-
-- Absolute paths on imports statements
-	- **[Using absolute paths with TypeScript, Babel and Browserify | [broculos.net]](https://broculos.net/2017/10/using-absolute-paths-with-typescript.html)**
-	- **[babel-plugin-module-resolver/DOCS.md at master · tleunen/babel-plugin-module-resolver | [github.com]](https://github.com/tleunen/babel-plugin-module-resolver/blob/master/DOCS.md)**
-	- tsconfig
-		```
-		{
-			"compilerOptions": {
-				// Modules
-				"baseUrl": ".",
-				"paths": {
-					"~/*": ["src/*"]
-				},
-				"moduleResolution": "node",
-				"resolveJsonModule": true,
-
-				// Language and environment
-				"target": "es2022",
-			},
-			"include": ["src/**/*.ts"],
-		}
-		```
-	- babel config
-		```
-		{
-			"presets": ["@babel/preset-env"],
-			"plugins": [
-				[
-					"module-resolver",
-					{
-						"root": ["./src"],
-						"alias": {
-							"~/components": "./src/components",
-							"~/data": "./src/data",
-							"~/lib": "./src/lib",
-							"~/types": "./src/types",
-							"~/utils": "./src/utils"
-						}
-					}
-				]
-			]
-		}
-		```
-	- gulp config
-		```
-		var babelify = require("babelify");
-		var watchedBrowserify =
-			watchify(
-				browserify({
-					"basedir": ".",
-					"entries": "src/main.ts"
-					"debug": true,
-					"cache": {},
-					"packageCache": {}
-				})
-				.plugin(tsify)
-				.transform(babelify, { "extensions": [".js", ".ts"] }) // IMPORTANT
-			);
-		```
-- SASS
-	- **[For, Each and While loops in Sass and SCSS - gavsblog | [gavsblog.com]](https://gavsblog.com/blog/for-each-while-loops-sass-scss)**
+- strategy pattern for data management | **[Example 1](https://github.com/diegofrayo/contacts-app/tree/main/src/modules/data/contacts)** - **[Example 2](https://github.com/diegofrayo/contacts-app/tree/main/src/modules/events-manager)**
+- singleton pattern to recreate a simple library to render components inspired in **[React](https://es.reactjs.org/)** | **[Source code](https://github.com/diegofrayo/contacts-app/blob/main/src/lib/ryakt.ts)**
+- **[sass](https://sass-lang.com/documentation)** to recreate a small version of **[Tailwind CSS](https://tailwindcss.com/docs/installation)** | **[Source code](https://github.com/diegofrayo/contacts-app/tree/main/src/styles/fw)**
+- **[zod](https://github.com/colinhacks/zod)** for models validations

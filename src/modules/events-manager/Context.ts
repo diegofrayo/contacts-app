@@ -1,8 +1,5 @@
 import IEventsManager from "./Interface";
 
-const EVENTS = ["REFRESH_CONTACTS_LIST"] as const;
-type T_EventId = typeof EVENTS[number];
-
 class EventsManagerContext {
 	public events;
 	private strategy;
@@ -18,7 +15,7 @@ class EventsManagerContext {
 		this.strategy = strategy;
 	}
 
-	dispatchEvent(eventId: T_EventId, payload: unknown) {
+	dispatchEvent(eventId: T_EventId, payload?: unknown) {
 		this.strategy.dispatchEvent(eventId, payload);
 	}
 
@@ -28,3 +25,11 @@ class EventsManagerContext {
 }
 
 export default EventsManagerContext;
+
+// --- Constants ---
+
+const EVENTS = ["REFRESH_CONTACTS_LIST", "SHOW_CREATE_CONTACT_MODAL"] as const;
+
+// --- Types ---
+
+type T_EventId = typeof EVENTS[number];

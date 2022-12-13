@@ -4,7 +4,7 @@ import v from "~/lib/validator";
 import type { T_Object } from "~/types";
 
 import IContactsStrategy from "./Interface";
-import Contact, { T_Contact, T_CreateContactDTO } from "./Model";
+import Contact, { T_Contact, T_ContactObject, T_CreateContactDTO } from "./Model";
 
 class StrategyWithLocalStorage implements IContactsStrategy {
 	private LOCAL_STORAGE_KEY = "capp_contacts";
@@ -83,7 +83,7 @@ class StrategyWithLocalStorage implements IContactsStrategy {
 		return [];
 	}
 
-	private write(contacts: T_Contact[]): void {
+	private write(contacts: T_ContactObject[]): void {
 		window.localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(contacts));
 	}
 }

@@ -1,10 +1,12 @@
+// Libs
+@use "./normalize";
+@use "./../lib/fakewind/main";
+
 // Global
-@use "./normalize.scss";
-@use "./global.scss";
-@use "./fw/_main.scss";
+@use "./global";
 
 // Components
-@use "../components/ContactsList/ContactsList.scss";
-@use "../components/CreateContactModal/CreateContactModal.scss";
-@use "../components/Layout/Layout.scss";
-@use "../components/SearchInput/SearchInput.scss";
+@use "../components/ContactsList/sty_ContactsList";
+@use "../components/CreateContactModal/sty_CreateContactModal";
+@use "../components/Layout/sty_Layout";
+@use "../components/SearchInput/sty_SearchInput";

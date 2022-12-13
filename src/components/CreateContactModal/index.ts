@@ -1,13 +1,14 @@
 import Ryakt from "~/lib/ryakt";
 import Contacts from "~/modules/data/contacts";
 import EventsManager from "~/modules/events-manager";
+import { getTargetElement } from "~/utils";
 
 function CreateContactModal() {
 	// handlers
 	async function onSubmitHandler(event: Event) {
 		event.preventDefault();
 
-		const form = event.target as HTMLFormElement;
+		const form = getTargetElement<HTMLFormElement>(event);
 		const newContact = {
 			id: "",
 			name: form["contact-name"].value,
@@ -24,7 +25,6 @@ function CreateContactModal() {
 	}
 
 	function handleCloseClick(): void {
-		// TODO: [Diego] Use EventManager to accomplish this
 		document.querySelector(".CreateContactModal")?.classList.remove("show");
 	}
 
@@ -45,6 +45,14 @@ function CreateContactModal() {
 	`;
 
 	return Ryakt.createElement("div", { className: "CreateContactModal" }, [children], {
+		didMount: function CreateContactModalDidMount() {
+			EventsManager.addEventListener(
+				EventsManager.events.SHOW_CREATE_CONTACT_MODAL,
+				async function showCreateContactModal() {
+					document.querySelector(".CreateContactModal")?.classList.add("show");
+				},
+			);
+		},
 		DOMEventsListeners: [
 			["click", ".CreateContactModal__content__close-btn", handleCloseClick],
 			["submit", ".CreateContactModal__content__form", onSubmitHandler],

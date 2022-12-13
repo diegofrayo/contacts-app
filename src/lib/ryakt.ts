@@ -3,20 +3,6 @@ import type { U_Unshift } from "~/types";
 
 import v from "./validator";
 
-type T_DOMEventHandler = [selector: string, handler: (ev: Event) => void];
-type T_DOMEventHandlerWithEventName = U_Unshift<
-	"click" | "change" | "keyup" | "submit",
-	T_DOMEventHandler
->;
-type T_CreateElementPropsParam = {
-	[key: string]: unknown;
-	className?: string;
-	onClick?: T_DOMEventHandler;
-	onChange?: T_DOMEventHandler;
-	onKeyUp?: T_DOMEventHandler;
-} | null;
-type T_DidMountMethod = () => unknown | Promise<unknown>;
-
 class Ryakt {
 	private static instance: Ryakt;
 	private DOMEventsListeners: T_DOMEventHandlerWithEventName[];
@@ -52,15 +38,15 @@ class Ryakt {
 			Object.entries(props).forEach(([key, value]) => {
 				if (key === "className") {
 					Element.classList.add(...String(value).split(" "));
-					// TODO: [Diego] Create regex for event handlers (2)
-				} else if (key === "onClick") {
-					this.addDOMEventListener(["click", ...(value as T_DOMEventHandler)]);
-				} else if (key === "onChange") {
-					this.addDOMEventListener(["change", ...(value as T_DOMEventHandler)]);
-				} else if (key === "onKeyUp") {
-					this.addDOMEventListener(["keyup", ...(value as T_DOMEventHandler)]);
-				} else {
+				} else if (isEventListener(key)) {
+					this.addDOMEventListener([
+						key.substring(2).toLowerCase() as T_DOMEventHandlerWithEventName["0"],
+						...(value as T_DOMEventHandler),
+					]);
+				} else if (v.isNumber(value) || v.isString(value) || v.isBoolean(value)) {
 					Element.setAttribute(key, String(value));
+				} else {
+					console.warn("", key, typeof key);
 				}
 			});
 		}
@@ -86,8 +72,7 @@ class Ryakt {
 		}
 
 		return {
-			// TODO: [Diego] Try to use symbols to identify this kind of objects (3)
-			isRyaktElement: true,
+			[RYAKT_ELEMENT_SYMBOL]: true,
 			element: Element,
 			render: function render() {
 				return Element;
@@ -142,20 +127,49 @@ class Ryakt {
 
 export default Ryakt.getInstance();
 
+// --- Constants ---
+
+const RYAKT_ELEMENT_SYMBOL: unique symbol = Symbol("$ryakt_element");
+const DOM_EVENTS_TYPES = ["click", "change", "keyup", "submit"] as const;
+
 // --- Types ---
 
-// TODO: [Diego] Remove any (2)
-export type T_RyaktComponent = (props?: any) => T_RyaktElement;
-
-export type T_RyaktElement = {
-	isRyaktElement: true;
+type T_RyaktElement = {
+	[RYAKT_ELEMENT_SYMBOL]: true;
 	element: HTMLElement;
 	render: () => HTMLElement;
 	toString: () => string;
 };
 
+type T_DOMEventHandler = [selector: string, handler: (ev: Event) => void];
+
+type T_DOMEventHandlerWithEventName = U_Unshift<typeof DOM_EVENTS_TYPES[number], T_DOMEventHandler>;
+
+type T_CreateElementPropsParam = {
+	[key: string]: unknown;
+	className?: string;
+	onClick?: T_DOMEventHandler;
+	onChange?: T_DOMEventHandler;
+	onKeyUp?: T_DOMEventHandler;
+} | null;
+
+type T_DidMountMethod = () => unknown | Promise<unknown>;
+
 // --- Utils ---
 
 function isRyaktElement(input: unknown): input is T_RyaktElement {
-	return v.isObject(input) && "isRyaktElement" in input && input["isRyaktElement"] === true;
+	return v.isObject(input) && RYAKT_ELEMENT_SYMBOL in input;
+}
+
+function isEventListener(propName: string): boolean {
+	const regex = new RegExp(/^on([A-Z]{1}[a-zA-Z]{4,10})$/, "g");
+	const results = [...propName.matchAll(regex)][0];
+
+	if (v.isUndefined(results)) {
+		return false;
+	}
+
+	const eventName = results[1].toLowerCase() as typeof DOM_EVENTS_TYPES[number];
+
+	return DOM_EVENTS_TYPES.includes(eventName);
 }

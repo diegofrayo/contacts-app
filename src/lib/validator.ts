@@ -6,6 +6,10 @@ function isNull(input: unknown): input is null {
 	return input === null;
 }
 
+function isFunction(input: unknown): boolean {
+	return typeof input === "function";
+}
+
 function isArray<G_ItemsType>(input: unknown): input is G_ItemsType[] {
 	return Array.isArray(input);
 }
@@ -109,6 +113,7 @@ function isDOMNode(element: unknown): element is Node {
 
 export default {
 	isNull,
+	isFunction,
 	isArray,
 	isArrayOf,
 	isUndefined,

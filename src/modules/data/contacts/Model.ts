@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { replaceAll } from "~/utils";
+import v from "~/lib/validator";
 import type { T_Object } from "~/types";
 
 class Contact {
@@ -22,6 +24,18 @@ class Contact {
 		this.whatsApp = parsedContact.whatsApp;
 		this.mail = parsedContact.mail;
 	}
+
+	getWhatsAppLink() {
+		if (v.isNotEmptyString(this.whatsApp)) {
+			return `https://api.whatsapp.com/send?text=Hi&phone=${replaceAll(
+				replaceAll(this.whatsApp || "", " ", ""),
+				"-",
+				"",
+			)}`;
+		}
+
+		return;
+	}
 }
 
 export default Contact;
@@ -38,6 +52,7 @@ const Schema = z.object({
 	mail: z.optional(z.string()),
 });
 
-export type T_Contact = z.infer<typeof Schema>;
+export type T_Contact = Contact;
+export type T_ContactObject = z.infer<typeof Schema>;
 
 export type T_CreateContactDTO = Exclude<T_Contact, "id">;

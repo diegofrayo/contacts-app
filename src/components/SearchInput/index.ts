@@ -1,5 +1,6 @@
 import Ryakt from "~/lib/ryakt";
 import EventsManager from "~/modules/events-manager";
+import { getTargetElement } from "~/utils";
 
 function SearchInput() {
 	const children = Ryakt.createElement("input", {
@@ -9,7 +10,7 @@ function SearchInput() {
 		onKeyUp: [
 			".SearchInput__input",
 			function onKeyUp(event: Event): void {
-				const inputValue = (event.target as HTMLInputElement).value;
+				const inputValue = getTargetElement<HTMLInputElement>(event).value;
 				EventsManager.dispatchEvent(EventsManager.events.REFRESH_CONTACTS_LIST, inputValue);
 			},
 		],

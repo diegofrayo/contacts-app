@@ -3,17 +3,18 @@ import Ryakt from "~/lib/ryakt";
 import v from "~/lib/validator";
 import Contacts from "~/modules/data/contacts";
 import EventsManager, { T_RefreshContactsListPayload } from "~/modules/events-manager";
+import { getTargetElement } from "~/utils";
 
 function ContactsList() {
-	EventsManager.addEventListener<T_RefreshContactsListPayload>(
-		EventsManager.events.REFRESH_CONTACTS_LIST,
-		async function onInputSearchChange(payload) {
-			renderContacts(payload);
-		},
-	);
-
 	return Ryakt.createElement("div", { className: "ContactsList" }, [], {
 		didMount: function ContactsListDidMount() {
+			EventsManager.addEventListener<T_RefreshContactsListPayload>(
+				EventsManager.events.REFRESH_CONTACTS_LIST,
+				async function refreshContactsList(payload) {
+					renderContacts(payload);
+				},
+			);
+
 			renderContacts();
 		},
 	});
@@ -95,7 +96,7 @@ async function renderContacts(filter?: string) {
 											v.isNotEmptyString(contact.whatsApp)
 												? `
 												<p class="ContactsList__list__item__extra-info__item">
-													<b>WhatsApp:</b> <a href="https://api.whatsapp.com/send?phone=&${contact.whatsApp}&text=Hi" target="_blank">${contact.whatsApp}</a>
+													<b>WhatsApp:</b> <a href="${contact.getWhatsAppLink()}" target="_blank">${contact.whatsApp}</a>
 												</p>`
 												: ""
 										}
@@ -123,15 +124,14 @@ async function renderContacts(filter?: string) {
 		</ul>
 	`;
 
-	// TODO: [Diego] Read this (https://bobbyhadz.com/blog/typescript-left-hand-side-of-assignment-not-optional#:~:text=The%20error%20%22The%20left%2Dhand,as%20a%20type%20guard%20instead.)
-	document.querySelector(".ContactsList")!.innerHTML = children;
-	document
+	const $contactListContainer = document.querySelector(".ContactsList") as HTMLDivElement;
+	$contactListContainer.innerHTML = children;
+	$contactListContainer
 		.querySelectorAll(".ContactsList__list__item__extra-info__delete-btn")
 		.forEach((element) => {
 			element.addEventListener("click", async function handleDeleteContactClick(event: Event) {
-				// TODO: [Diego] it's possible to avoid this "as"
 				const contactId =
-					(event.currentTarget as HTMLButtonElement).getAttribute("data-contact-id") || "";
+					getTargetElement<HTMLButtonElement>(event).getAttribute("data-contact-id") || "";
 
 				await Contacts.deleteById(contactId);
 
