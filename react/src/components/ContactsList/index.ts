@@ -100,7 +100,7 @@ async function renderContacts(filter?: string) {
                       v.isNotEmptyString(contact.whatsApp)
                         ? `
 												<p class="ContactsList__list__item__extra-info__item">
-													<b>WhatsApp:</b> <a href="${contact.getWhatsAppLink()}" target="_blank">${
+													<b>WhatsApp:</b> <a href="${contact.getWhatsAppLink()}" target="_blank" rel="noreferrer">${
                             contact.whatsApp
                           }</a>
 												</p>`
@@ -110,7 +110,7 @@ async function renderContacts(filter?: string) {
                       v.isNotEmptyString(contact.mail)
                         ? `
 												<p class="ContactsList__list__item__extra-info__item">
-													<b>Mail</b>: <a href="mailto:${contact.mail}" target="_blank">${contact.mail}</a>
+													<b>Mail</b>: <a href="mailto:${contact.mail}" target="_blank" rel="noreferrer">${contact.mail}</a>
 												</p>`
                         : ""
                     }
