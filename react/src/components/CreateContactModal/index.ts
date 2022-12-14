@@ -11,11 +11,11 @@ function CreateContactModal() {
 		const form = getTargetElement<HTMLFormElement>(event);
 		const newContact = {
 			id: "",
-			name: form["contact-name"].value,
-			instagram: form["instagram"].value,
-			mail: form["mail"].value,
-			tel: form["tel"].value,
-			whatsapp: form["whatsapp"].value,
+			name: form["input-name"].value,
+			instagram: form["input-instagram"].value,
+			mail: form["input-mail"].value,
+			tel: form["input-tel"].value,
+			whatsapp: form["input-whatsapp"].value,
 		};
 
 		await Contacts.create(newContact);
@@ -33,12 +33,26 @@ function CreateContactModal() {
 			<button class="CreateContactModal__content__close-btn">x</button>
 			<h2 class="CreateContactModal__content__title">Add Contact</h2>
 			<form name="create-contact-form" class="CreateContactModal__content__form">
-				<input name="contact-name" type="text" class="CreateContactModal__content__form__input CreateContactModal__content__form__input--name" placeholder="Name" />
-				<input name="avatar" type="file" hidden />
-				<input name="tel" type="text" class="CreateContactModal__content__form__input CreateContactModal__content__form__input--tel" placeholder="Telephone" />
-				<input name="instagram" type="text" class="CreateContactModal__content__form__input CreateContactModal__content__form__input--instagram" placeholder="Instagram" />
-				<input name="whatsapp" type="text" class="CreateContactModal__content__form__input CreateContactModal__content__form__input--whatsapp" placeholder="WhatsApp" />
-				<input name="mail" type="text" class="CreateContactModal__content__form__input CreateContactModal__content__form__input--mail" placeholder="Mail" />
+				<div class="CreateContactModal__content__form__box">
+					<label class="CreateContactModal__content__form__box__label" for="input-name">Name: (*)</label>
+					<input id="input-name" name="input-name" type="text" class="CreateContactModal__content__form__box__input CreateContactModal__content__form__box__input--name" placeholder="Name" oninvalid="this.setCustomValidity('This field is required')" oninput="this.setCustomValidity('')" required />
+				</div>
+				<div class="CreateContactModal__content__form__box">
+					<label class="CreateContactModal__content__form__box__label" for="input-tel">Telephone:</label>
+					<input id="input-tel" name="input-tel" type="tel" class="CreateContactModal__content__form__box__input CreateContactModal__content__form__box__input--tel" placeholder="Telephone" />
+				</div>
+				<div class="CreateContactModal__content__form__box fw-col-span-full">
+					<label class="CreateContactModal__content__form__box__label" for="input-instagram">Instagram:</label>
+					<input id="input-instagram" name="input-instagram" type="text" class="CreateContactModal__content__form__box__input CreateContactModal__content__form__box__input--instagram" placeholder="Instagram" />
+				</div>
+				<div class="CreateContactModal__content__form__box fw-col-span-full">
+					<label class="CreateContactModal__content__form__box__label" for="input-whatsapp">Whatsapp:</label>
+					<input id="input-whatsapp" name="input-whatsapp" type="tel" class="CreateContactModal__content__form__box__input CreateContactModal__content__form__box__input--whatsapp" placeholder="WhatsApp" />
+				</div>
+				<div class="CreateContactModal__content__form__box fw-col-span-full">
+					<label class="CreateContactModal__content__form__box__label" for="input-mail">Mail:</label>
+					<input id="input-mail" name="input-mail" type="email" class="CreateContactModal__content__form__box__input CreateContactModal__content__form__box__input--mail" placeholder="Mail" />
+				</div>
 				<button name="submit" class="CreateContactModal__content__form__submit-btn" type="submit">Create</button>
 			</form>
 		</div>

@@ -46,7 +46,7 @@ class Ryakt {
 				} else if (v.isNumber(value) || v.isString(value) || v.isBoolean(value)) {
 					Element.setAttribute(key, String(value));
 				} else {
-					console.warn("", key, typeof key);
+					console.warn("Invalid attribute value", key, typeof key);
 				}
 			});
 		}

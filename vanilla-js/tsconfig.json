@@ -29,6 +29,7 @@
 
 		// Emit
 		"sourceMap": true,
+		"noEmit": true,
 
 		// Language and environment
 		"target": "es2022",

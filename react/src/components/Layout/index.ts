@@ -7,13 +7,13 @@ import Contacts from "~/modules/data/contacts";
 import EventsManager from "~/modules/events-manager";
 
 function Layout() {
-  // handlers
-  function handleCreateContactClick(e: Event): void {
-    e.preventDefault();
-    EventsManager.dispatchEvent(EventsManager.events.SHOW_CREATE_CONTACT_MODAL);
-  }
+	// handlers
+	function handleCreateContactClick(event: Event): void {
+		event.preventDefault();
+		EventsManager.dispatchEvent(EventsManager.events.SHOW_CREATE_CONTACT_MODAL);
+	}
 
-  const children = `
+	const children = `
 		<header class="header fw-mb-6">
 			<h2 class="fw-text-center">Contacts</h2>
 			<div class="header__create-contact">
@@ -26,14 +26,12 @@ function Layout() {
 		${CreateContactModal()}
   `;
 
-  return Ryakt.createElement("div", { className: "Layout" }, [children], {
-    didMount: function LayoutDidMount() {
-      return Contacts.loadDefaultData();
-    },
-    DOMEventsListeners: [
-      ["click", ".header__create-contact__button", handleCreateContactClick],
-    ],
-  });
+	return Ryakt.createElement("div", { className: "Layout" }, [children], {
+		didMount: function LayoutDidMount() {
+			return Contacts.loadDefaultData();
+		},
+		DOMEventsListeners: [["click", ".header__create-contact__button", handleCreateContactClick]],
+	});
 }
 
 export default Layout;
