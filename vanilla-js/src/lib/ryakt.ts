@@ -163,7 +163,7 @@ function isRyaktElement(input: unknown): input is T_RyaktElement {
 
 function isEventListener(propName: string): boolean {
 	const regex = new RegExp(/^on([A-Z]{1}[a-zA-Z]{4,10})$/, "g");
-	const results = [...propName.matchAll(regex)][0];
+	const results = Array.from(propName.matchAll(regex))[0];
 
 	if (v.isUndefined(results)) {
 		return false;

@@ -3,9 +3,9 @@
 	"version": "1.0.0",
 	"description": "App for learning purposes",
 	"scripts": {
-		"build": "gulp buildProject",
-		"dev": "npx serve ./public",
-		"watch": "gulp watch",
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
 		"format": "prettier --write \"./src/**/*.{ts,json,js,scss}\""
 	},
 	"repository": {
@@ -37,6 +37,7 @@
 		"tsify": "^5.0.4",
 		"typescript": "^4.9.3",
 		"vinyl-source-stream": "^2.0.0",
+		"vite": "^4.0.1",
 		"watchify": "^4.0.0"
 	},
 	"dependencies": {

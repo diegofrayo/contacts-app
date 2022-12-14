@@ -5,6 +5,7 @@ App for learning purposes
 ## Setup
 
 1. Clone the repo: `git clone https://github.com/diegofrayo/contacts-app.git`
+1. `cd vanilla-js`
 1. Install dependencies: `npm install`
 1. Build the project: `npm run build`
 1. Start a watcher to compile sass/ts files when any file of these types change: `npm run watch`
