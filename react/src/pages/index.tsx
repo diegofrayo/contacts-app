@@ -12,9 +12,18 @@ function Home() {
 					name="viewport"
 					content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no"
 				/>
-				<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				<link rel="icon" href="https://fav.farm/🧪" />
+				<meta
+					httpEquiv="X-UA-Compatible"
+					content="IE=edge"
+				/>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1.0"
+				/>
+				<link
+					rel="icon"
+					href="https://fav.farm/🧪"
+				/>
 				<title>Contacts App</title>
 			</Head>
 			<App />

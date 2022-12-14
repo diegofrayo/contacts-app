@@ -6,7 +6,7 @@ import { AppProps } from "next/app";
 import { T_ReactElement } from "~/types";
 
 function CustomApp({ Component, pageProps }: AppProps): T_ReactElement {
-  return <Component {...pageProps} />;
+	return <Component {...pageProps} />;
 }
 
 export default CustomApp;
