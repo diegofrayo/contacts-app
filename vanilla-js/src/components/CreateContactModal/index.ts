@@ -4,7 +4,7 @@ import EventsManager from "~/modules/events-manager";
 import { getTargetElement } from "~/utils";
 
 function CreateContactModal() {
-	// handlers
+	// handlers function
 	async function onSubmitHandler(event: Event) {
 		event.preventDefault();
 		const form = getTargetElement<HTMLFormElement>(event);
