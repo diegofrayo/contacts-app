@@ -18,8 +18,10 @@ class ContactsContext {
 		const contacts = await this.getAll();
 
 		if (v.isEmptyArray(contacts)) {
-			this.strategy.loadDefaultData();
+			return this.strategy.loadDefaultData();
 		}
+
+		return contacts;
 	}
 
 	async create(newContact: T_CreateContactDTO) {

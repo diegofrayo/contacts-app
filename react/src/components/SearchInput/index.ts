@@ -11,12 +11,13 @@ function SearchInput() {
 			".SearchInput__input",
 			function onKeyUp(event: Event): void {
 				const inputValue = getTargetElement<HTMLInputElement>(event).value;
+
 				EventsManager.dispatchEvent(EventsManager.events.REFRESH_CONTACTS_LIST, inputValue);
 			},
 		],
 	});
 
-	return Ryakt.createElement("form", { className: "SearchInput" }, [children]);
+	return Ryakt.createElement("div", { className: "SearchInput" }, [children]);
 }
 
 export default SearchInput;

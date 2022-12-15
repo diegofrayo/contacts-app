@@ -9,7 +9,6 @@ import EventsManager from "~/modules/events-manager";
 function Layout() {
 	// handlers
 	function handleCreateContactClick(event: Event): void {
-		event.preventDefault();
 		EventsManager.dispatchEvent(EventsManager.events.SHOW_CREATE_CONTACT_MODAL);
 	}
 

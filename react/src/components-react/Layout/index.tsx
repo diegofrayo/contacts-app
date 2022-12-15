@@ -5,19 +5,29 @@ import Separator from "~/components-react/Separator";
 import { useDidMount } from "~/hooks";
 import Contacts from "~/modules/data/contacts";
 import EventsManager from "~/modules/events-manager";
-import { T_ReactOnClickEventObject } from "~/types";
+import { setContactsAction, useDispatch } from "~/modules/state-management";
+import type { T_ReactOnClickEventObject } from "~/types";
 
 function Layout() {
-	// handlers
-	function handleCreateContactClick(event: T_ReactOnClickEventObject<HTMLButtonElement>): void {
-		event.preventDefault();
-		EventsManager.dispatchEvent(EventsManager.events.SHOW_CREATE_CONTACT_MODAL);
-	}
+	// hooks
+	const dispatch = useDispatch();
 
 	// effects
 	useDidMount(() => {
-		Contacts.loadDefaultData();
+		fetchContacts();
 	});
+
+	// handlers
+	function handleCreateContactClick(): void {
+		EventsManager.dispatchEvent(EventsManager.events.SHOW_CREATE_CONTACT_MODAL);
+	}
+
+	// utils
+	async function fetchContacts(): Promise<void> {
+		const contacts = await Contacts.loadDefaultData();
+
+		dispatch(setContactsAction(contacts));
+	}
 
 	return (
 		<div className="Layout">

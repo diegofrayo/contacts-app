@@ -6,23 +6,56 @@ import { useDidMount } from "~/hooks";
 import v from "~/lib/validator";
 import Contacts, { T_Contact } from "~/modules/data/contacts";
 import EventsManager, { T_RefreshContactsListPayload } from "~/modules/events-manager";
+import {
+	deleteContactAction,
+	getContactsSelector,
+	useDispatch,
+	useSelector,
+} from "~/modules/state-management";
 import type { T_ReactOnClickEventObject } from "~/types";
 
 function ContactsList() {
+	// hooks
+	const contactsFromState = useSelector(getContactsSelector);
+	const dispatch = useDispatch();
+
 	// states & refs
 	const [contacts, setContacts] = React.useState<T_Contact[]>([]);
+	// console.log({ contactsFromState, contacts });
+
+	// utils
+	const updateContacts = React.useCallback(
+		async function updateContacts(filter?: string) {
+			// console.log("updateContacts", contactsFromState);
+
+			setContacts(
+				v.isNotEmptyString(filter)
+					? contactsFromState.filter((contact) => {
+							return (
+								contact.name.toLowerCase().includes(filter.toLowerCase()) ||
+								(contact.tel || "").toLowerCase().includes(filter.toLowerCase())
+							);
+					  })
+					: contactsFromState,
+			);
+		},
+		[contactsFromState],
+	);
 
 	// effects
 	useDidMount(() => {
-		EventsManager.addEventListener<T_RefreshContactsListPayload>(
-			EventsManager.events.REFRESH_CONTACTS_LIST,
-			async function refreshContactsList(filter) {
-				updateContacts(filter);
-			},
-		);
-
-		updateContacts();
+		// TODO: Implement this using Context
+		// EventsManager.addEventListener<T_RefreshContactsListPayload>(
+		// 	EventsManager.events.REFRESH_CONTACTS_LIST,
+		// 	async function refreshContactsList(filter) {
+		// 		updateContacts(filter);
+		// 	},
+		// );
 	});
+
+	React.useEffect(() => {
+		updateContacts();
+	}, [contactsFromState, updateContacts]);
 
 	// handlers
 	function handleTelClick(event: T_ReactOnClickEventObject<HTMLAnchorElement>): void {
@@ -32,25 +65,7 @@ function ContactsList() {
 	async function handleDeleteContactClick(event: T_ReactOnClickEventObject<HTMLButtonElement>) {
 		const contactId = event.currentTarget.getAttribute("data-contact-id") || "";
 
-		await Contacts.deleteById(contactId);
-
-		updateContacts();
-	}
-
-	// utils
-	async function updateContacts(filter?: string) {
-		let contacts = await Contacts.getAll();
-
-		if (v.isNotEmptyString(filter)) {
-			contacts = contacts.filter((contact) => {
-				return (
-					contact.name.toLowerCase().includes(filter.toLowerCase()) ||
-					(contact.tel || "").toLowerCase().includes(filter.toLowerCase())
-				);
-			});
-		}
-
-		setContacts(contacts);
+		dispatch(deleteContactAction((await Contacts.deleteById(contactId)).id));
 	}
 
 	return (
@@ -136,7 +151,7 @@ function ContactsList() {
 									{contactHasDetails ? <Separator size={1} /> : null}
 									<div className="fw-flex fw-items-center fw-justify-end">
 										<button
-											className="ContactsList__list__item__extra-info__delete-btn fw-p-1 fw-font-bold fw-text-red"
+											className="ContactsList__list__item__extra-info__delete-btn fw-p-1 fw-font-bold fw-text-red-600"
 											data-contact-id={contact.id}
 											onClick={handleDeleteContactClick}
 										>

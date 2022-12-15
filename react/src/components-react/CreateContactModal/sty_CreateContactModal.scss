@@ -44,19 +44,25 @@
 			gap: 10px;
 			grid-template-columns: 1fr 1fr;
 
-			&__input {
-				background: none;
-				border-radius: 8px;
-				border: none;
-				box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-				outline: none;
-				padding: 0.8rem;
-				width: 100%;
+			&__box {
+				margin-bottom: 1rem;
 
-				&--whatsapp,
-				&--mail,
-				&--instagram {
-					grid-column: 1 / 3;
+				&__label {
+					color: rgba(0, 0, 0, 0.46);
+					cursor: pointer;
+					display: block;
+					font-size: 0.8rem;
+					margin-bottom: 0.5rem;
+				}
+
+				&__input {
+					background: none;
+					border-radius: 8px;
+					border: none;
+					box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+					outline: none;
+					padding: 0.8rem;
+					width: 100%;
 				}
 			}
 

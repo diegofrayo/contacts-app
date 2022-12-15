@@ -12,14 +12,14 @@ function SearchInput() {
 	}
 
 	return (
-		<form className="SearchInput">
+		<div className="SearchInput">
 			<input
 				className="SearchInput__input"
 				type="text"
 				placeholder="Search"
 				onKeyUp={onKeyUpHandler}
 			/>
-		</form>
+		</div>
 	);
 }
 
