@@ -24,6 +24,8 @@ function CreateContactModal() {
 		form.reset();
 	}
 
+	// create close function by removing the class 
+
 	function handleCloseClick(): void {
 		document.querySelector(".CreateContactModal")?.classList.remove("show");
 	}
