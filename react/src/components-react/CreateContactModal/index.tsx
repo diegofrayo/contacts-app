@@ -11,8 +11,8 @@ function CreateContactModal() {
 
 	// effects
 	useDidMount(() => {
-		EventsManager.addEventListener(
-			EventsManager.events.SHOW_CREATE_CONTACT_MODAL,
+		EventsManager.instance.addEventListener(
+			EventsManager.instance.events.SHOW_CREATE_CONTACT_MODAL,
 			async function showCreateContactModal() {
 				document.querySelector(".CreateContactModal")?.classList.add("show");
 			},
@@ -93,7 +93,7 @@ function CreateContactModal() {
 							placeholder="Telephone"
 						/>
 					</div>
-					<div className="CreateContactModal__content__form__box fw-col-span-full">
+					<div className="CreateContactModal__content__form__box tw-col-span-full">
 						<label
 							className="CreateContactModal__content__form__box__label"
 							htmlFor="input-instagram"
@@ -108,7 +108,7 @@ function CreateContactModal() {
 							placeholder="Instagram"
 						/>
 					</div>
-					<div className="CreateContactModal__content__form__box fw-col-span-full">
+					<div className="CreateContactModal__content__form__box tw-col-span-full">
 						<label
 							className="CreateContactModal__content__form__box__label"
 							htmlFor="input-whatsapp"
@@ -123,7 +123,7 @@ function CreateContactModal() {
 							placeholder="WhatsApp"
 						/>
 					</div>
-					<div className="CreateContactModal__content__form__box fw-col-span-full">
+					<div className="CreateContactModal__content__form__box tw-col-span-full">
 						<label
 							className="CreateContactModal__content__form__box__label"
 							htmlFor="input-mail"

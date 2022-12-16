@@ -24,3 +24,11 @@ button {
 	border: 0;
 	cursor: pointer;
 }
+
+.cpp-gradient {
+	background: linear-gradient(to left, #ab7adc 0%, #f9edf1 100%);
+}
+
+.cpp-gradient--inverse {
+	background: linear-gradient(to right, #ab7adc 0%, #f9edf1 100%);
+}

@@ -1,6 +1,8 @@
 import IEventsManager from "./Interface";
 
 class StrategyWithBrowserAPI implements IEventsManager {
+	name = "StrategyWithBrowserAPI";
+
 	dispatchEvent(eventId: string, payload: unknown) {
 		const action = new CustomEvent(eventId, { detail: payload });
 		window.dispatchEvent(action);

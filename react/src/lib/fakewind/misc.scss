@@ -1,82 +1,82 @@
 // --- width ---
 
-.fw-w-full {
+.tw-w-full {
 	width: 100%;
 }
 
 // --- display ---
 
-.fw-flex {
+.tw-flex {
 	display: flex;
 }
 
-.fw-hidden {
+.tw-hidden {
 	display: none;
 }
 
 // --- grid ---
 
-.fw-col-span-full {
+.tw-col-span-full {
 	grid-column: 1 / -1;
 }
 
 // --- flex ---
 
-.fw-items-center {
+.tw-items-center {
 	align-items: center;
 }
 
-.fw-justify-center {
+.tw-justify-center {
 	justify-content: center;
 }
 
-.fw-justify-end {
+.tw-justify-end {
 	justify-content: end;
 }
 
 // --- colors ---
 
-.fw-text-red-600 {
+.tw-text-red-600 {
 	color: red;
 }
 
 // --- cursor ---
-.fw-cursor-pointer {
+.tw-cursor-pointer {
 	cursor: pointer;
 }
 
 // --- text align ---
 
-.fw-text-center {
+.tw-text-center {
 	text-align: center;
 }
 
 // --- border ---
 
-.fw-border-0 {
+.tw-border-0 {
 	border: none;
 }
 
 // --- font ---
 
-.fw-font-bold {
+.tw-font-bold {
 	font-weight: bold;
 }
 
 // --- position ---
 
-.fw-absolute {
+.tw-absolute {
 	position: absolute;
 }
 
 // --- background ---
 
-.fw-bg-transparent {
+.tw-bg-transparent {
 	background-color: transparent;
 }
 
 // --- height/width ---
 
-.fw-h-px {
+.tw-h-px {
 	height: 1px;
 }

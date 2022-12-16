@@ -16,10 +16,12 @@ class EventsManagerContext {
 	}
 
 	dispatchEvent(eventId: T_EventId, payload?: unknown) {
+		console.log("You are using:", `EventsManager${this.strategy.name}`);
 		this.strategy.dispatchEvent(eventId, payload);
 	}
 
 	addEventListener<G_Payload>(eventId: T_EventId, handler: (payload: G_Payload) => void) {
+		console.log("You are using:", `EventsManager${this.strategy.name}`);
 		this.strategy.addEventListener(eventId, handler);
 	}
 }

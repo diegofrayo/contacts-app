@@ -14,21 +14,21 @@
 	);
 
 	@each $sideShorthand, $side in $sides {
-		.fw-#{$propertyShorthand}#{$sideShorthand}-#{$selectorValue} {
+		.tw-#{$propertyShorthand}#{$sideShorthand}-#{$selectorValue} {
 			#{$property}-#{$side}: $propertyValue;
 		}
 	}
 
-	.fw-#{$propertyShorthand}-#{$selectorValue} {
+	.tw-#{$propertyShorthand}-#{$selectorValue} {
 		#{$property}: $propertyValue;
 	}
 
-	.fw-#{$propertyShorthand}#{x}-#{$selectorValue} {
+	.tw-#{$propertyShorthand}#{x}-#{$selectorValue} {
 		#{$property}-left: $propertyValue;
 		#{$property}-right: $propertyValue;
 	}
 
-	.fw-#{$propertyShorthand}#{y}-#{$selectorValue} {
+	.tw-#{$propertyShorthand}#{y}-#{$selectorValue} {
 		#{$property}-top: $propertyValue;
 		#{$property}-bottom: $propertyValue;
 	}

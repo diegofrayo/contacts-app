@@ -19,7 +19,7 @@ function isArrayOf<G_ItemsType>(input: unknown, type: "string"): input is G_Item
 }
 
 function isUndefined(input: unknown): input is undefined {
-	return input === undefined;
+	return typeof input === "undefined";
 }
 
 function isObject(input: unknown): input is T_Object {
@@ -111,7 +111,7 @@ function isDOMNode(element: unknown): element is Node {
 	return "nodeType" in (isObject(element) ? element : {});
 }
 
-export default {
+const API = {
 	isNull,
 	isFunction,
 	isArray,
@@ -143,3 +143,5 @@ export default {
 
 	isDOMNode,
 };
+
+export default API;

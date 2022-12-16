@@ -19,7 +19,7 @@ function isArrayOf<G_ItemsType>(input: unknown, type: "string"): input is G_Item
 }
 
 function isUndefined(input: unknown): input is undefined {
-	return input === undefined;
+	return typeof input === "undefined";
 }
 
 function isObject(input: unknown): input is T_Object {

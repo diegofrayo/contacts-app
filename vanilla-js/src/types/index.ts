@@ -1,6 +1,8 @@
 // --- Primitives ---
 
-export type T_Object<G_Values = unknown> = { [key: string | number | symbol]: G_Values };
+export type T_Object<G_Values = unknown> = {
+	[key: string | number | symbol]: G_Values;
+};
 
 // --- Utilities ---
 

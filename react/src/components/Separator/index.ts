@@ -4,7 +4,7 @@ import Ryakt from "~/lib/ryakt";
 
 function Separator({ size }: { size: number }) {
 	return Ryakt.createElement("hr", {
-		className: classNames("Separator", `fw-my-${size} fw-border-0 fw-h-px`),
+		className: classNames("Separator", `tw-my-${size} tw-border-0 tw-h-px`),
 	});
 }
 

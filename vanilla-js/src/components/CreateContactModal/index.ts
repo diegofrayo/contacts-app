@@ -19,7 +19,7 @@ function CreateContactModal() {
 		};
 
 		await Contacts.create(newContact);
-		EventsManager.dispatchEvent(EventsManager.events.REFRESH_CONTACTS_LIST, "");
+		EventsManager.instance.dispatchEvent(EventsManager.instance.events.REFRESH_CONTACTS_LIST, "");
 		handleCloseClick();
 		form.reset();
 	}
@@ -41,15 +41,15 @@ function CreateContactModal() {
 					<label class="CreateContactModal__content__form__box__label" for="input-tel">Telephone:</label>
 					<input id="input-tel" name="input-tel" type="tel" class="CreateContactModal__content__form__box__input CreateContactModal__content__form__box__input--tel" placeholder="Telephone" />
 				</div>
-				<div class="CreateContactModal__content__form__box fw-col-span-full">
+				<div class="CreateContactModal__content__form__box tw-col-span-full">
 					<label class="CreateContactModal__content__form__box__label" for="input-instagram">Instagram:</label>
 					<input id="input-instagram" name="input-instagram" type="text" class="CreateContactModal__content__form__box__input CreateContactModal__content__form__box__input--instagram" placeholder="Instagram" />
 				</div>
-				<div class="CreateContactModal__content__form__box fw-col-span-full">
+				<div class="CreateContactModal__content__form__box tw-col-span-full">
 					<label class="CreateContactModal__content__form__box__label" for="input-whatsapp">Whatsapp:</label>
 					<input id="input-whatsapp" name="input-whatsapp" type="tel" class="CreateContactModal__content__form__box__input CreateContactModal__content__form__box__input--whatsapp" placeholder="WhatsApp" />
 				</div>
-				<div class="CreateContactModal__content__form__box fw-col-span-full">
+				<div class="CreateContactModal__content__form__box tw-col-span-full">
 					<label class="CreateContactModal__content__form__box__label" for="input-mail">Mail:</label>
 					<input id="input-mail" name="input-mail" type="email" class="CreateContactModal__content__form__box__input CreateContactModal__content__form__box__input--mail" placeholder="Mail" />
 				</div>
@@ -60,8 +60,8 @@ function CreateContactModal() {
 
 	return Ryakt.createElement("div", { className: "CreateContactModal" }, [children], {
 		didMount: function CreateContactModalDidMount() {
-			EventsManager.addEventListener(
-				EventsManager.events.SHOW_CREATE_CONTACT_MODAL,
+			EventsManager.instance.addEventListener(
+				EventsManager.instance.events.SHOW_CREATE_CONTACT_MODAL,
 				async function showCreateContactModal() {
 					document.querySelector(".CreateContactModal")?.classList.add("show");
 				},

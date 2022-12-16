@@ -1,6 +1,8 @@
 import IEventsManager from "./Interface";
 
 class StrategyWithPattern implements IEventsManager {
+	name = "StrategyWithPattern";
+
 	dispatchEvent(eventId: string, payload: unknown) {
 		PublisherSubscriber.publish(eventId, payload);
 	}

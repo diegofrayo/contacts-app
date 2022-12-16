@@ -9,12 +9,12 @@ import EventsManager from "~/modules/events-manager";
 function Layout() {
 	// handlers
 	function handleCreateContactClick(): void {
-		EventsManager.dispatchEvent(EventsManager.events.SHOW_CREATE_CONTACT_MODAL);
+		EventsManager.instance.dispatchEvent(EventsManager.instance.events.SHOW_CREATE_CONTACT_MODAL);
 	}
 
 	const children = `
-		<header class="header fw-mb-6">
-			<h2 class="fw-text-center">Contacts</h2>
+		<header class="header tw-mb-6">
+			<h2 class="tw-text-center">Contacts</h2>
 			<div class="header__create-contact">
 				<button class="header__create-contact__button">+</button>
 			</div>
@@ -25,7 +25,7 @@ function Layout() {
 		${CreateContactModal()}
   `;
 
-	return Ryakt.createElement("div", { className: "Layout" }, [children], {
+	return Ryakt.createElement("div", { className: "Layout cpp-gradient" }, [children], {
 		didMount: function LayoutDidMount() {
 			return Contacts.loadDefaultData();
 		},

@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	prefix: "fw-",
+	prefix: "tw-",
 	content: ["./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
 		extend: {},
@@ -8,7 +8,7 @@ module.exports = {
 	plugins: [],
 	safelist: [
 		{
-			pattern: /fw-my-|fw-mx-|fw-mt-|fw-mb-/,
+			pattern: /tw-my-|tw-mx-|tw-mt-|tw-mb-/,
 			variants: ["sm", "md", "lg", "xl"],
 		},
 	],

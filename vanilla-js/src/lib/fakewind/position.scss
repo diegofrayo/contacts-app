@@ -4,7 +4,7 @@
 // --- mixins ---
 
 @mixin generate-classes($propertyName, $selectorValue, $propertyValue) {
-	.fw-#{$propertyName}-#{$selectorValue} {
+	.tw-#{$propertyName}-#{$selectorValue} {
 		#{$propertyName}: $propertyValue;
 	}
 }

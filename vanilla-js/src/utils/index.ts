@@ -1,5 +1,13 @@
 import v from "~/lib/validator";
 
+export function isBrowser(): boolean {
+	return isServer() === false;
+}
+
+export function isServer(): boolean {
+	return typeof window === "undefined";
+}
+
 export async function resolvePromisesSequentially(tasks: (() => unknown | Promise<unknown>)[]) {
 	const results = [];
 

@@ -1,4 +1,5 @@
 interface IEventsManager {
+	name: string;
 	dispatchEvent<G_Payload>(eventId: string, payload: G_Payload): void;
 	addEventListener<G_Payload>(eventId: string, handler: (payload: G_Payload) => void): void;
 }

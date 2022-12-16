@@ -9,8 +9,8 @@ import { getTargetElement } from "~/utils";
 function ContactsList() {
 	return Ryakt.createElement("div", { className: "ContactsList" }, [], {
 		didMount: function ContactsListDidMount() {
-			EventsManager.addEventListener<T_RefreshContactsListPayload>(
-				EventsManager.events.REFRESH_CONTACTS_LIST,
+			EventsManager.instance.addEventListener<T_RefreshContactsListPayload>(
+				EventsManager.instance.events.REFRESH_CONTACTS_LIST,
 				async function refreshContactsList(payload) {
 					renderContacts(payload);
 				},
@@ -59,7 +59,7 @@ async function renderContacts(filter?: string) {
 
 					return `
 						<li class="ContactsList__list__item">
-							<details class="fw-w-full">
+							<details class="tw-w-full">
 								<summary class="ContactsList__list__item__header">
 									<img class="ContactsList__list__item__header__avatar" src="${ASSETS_PATH}/images/avatar.svg" />
 									<div class="ContactsList__list__item__header__details">
@@ -113,8 +113,8 @@ async function renderContacts(filter?: string) {
 										}
 									</div>
 									${contactHasDetails ? Separator({ size: 1 }) : ""}
-									<div class="fw-flex fw-items-center fw-justify-end">
-										<button class="ContactsList__list__item__extra-info__delete-btn fw-p-1 fw-font-bold fw-text-red-600" data-contact-id="${
+									<div class="tw-flex tw-items-center tw-justify-end">
+										<button class="ContactsList__list__item__extra-info__delete-btn tw-p-1 tw-font-bold tw-text-red-600" data-contact-id="${
 											contact.id
 										}">delete</button>
 									</div>

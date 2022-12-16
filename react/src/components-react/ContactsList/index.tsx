@@ -74,7 +74,7 @@ function ContactsList() {
 							key={contact.id}
 							className="ContactsList__list__item"
 						>
-							<details className="fw-w-full">
+							<details className="tw-w-full">
 								<summary className="ContactsList__list__item__header">
 									<img
 										className="ContactsList__list__item__header__avatar"
@@ -141,9 +141,9 @@ function ContactsList() {
 										) : null}
 									</div>
 									{contactHasDetails ? <Separator size={1} /> : null}
-									<div className="fw-flex fw-items-center fw-justify-end">
+									<div className="tw-flex tw-items-center tw-justify-end">
 										<button
-											className="ContactsList__list__item__extra-info__delete-btn fw-p-1 fw-font-bold fw-text-red-600"
+											className="ContactsList__list__item__extra-info__delete-btn tw-p-1 tw-font-bold tw-text-red-600"
 											data-contact-id={contact.id}
 											onClick={handleDeleteContactClick}
 										>

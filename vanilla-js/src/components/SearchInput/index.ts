@@ -12,7 +12,10 @@ function SearchInput() {
 			function onKeyUp(event: Event): void {
 				const inputValue = getTargetElement<HTMLInputElement>(event).value;
 
-				EventsManager.dispatchEvent(EventsManager.events.REFRESH_CONTACTS_LIST, inputValue);
+				EventsManager.instance.dispatchEvent(
+					EventsManager.instance.events.REFRESH_CONTACTS_LIST,
+					inputValue,
+				);
 			},
 		],
 	});
