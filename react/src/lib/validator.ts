@@ -111,7 +111,7 @@ function isDOMNode(element: unknown): element is Node {
 	return "nodeType" in (isObject(element) ? element : {});
 }
 
-export default {
+const API = {
 	isNull,
 	isFunction,
 	isArray,
@@ -143,3 +143,5 @@ export default {
 
 	isDOMNode,
 };
+
+export default API;

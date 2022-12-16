@@ -1,14 +1,15 @@
-import { KeyboardEvent } from "react";
-import Ryakt from "~/lib/ryakt";
-import EventsManager from "~/modules/events-manager";
-import { getTargetElement } from "~/utils";
+import { updateSearchInputValueAction, useDispatch } from "~/modules/state-management";
+import type { T_ReactOnChangeEventObject } from "~/types";
 
 function SearchInput() {
+	// hooks
+	const dispatch = useDispatch();
+
 	// handlers
-	function onKeyUpHandler(event: KeyboardEvent<HTMLInputElement>): void {
+	function onChangeHandler(event: T_ReactOnChangeEventObject<HTMLInputElement>): void {
 		const inputValue = event.currentTarget.value;
 
-		EventsManager.dispatchEvent(EventsManager.events.REFRESH_CONTACTS_LIST, inputValue);
+		dispatch(updateSearchInputValueAction(inputValue));
 	}
 
 	return (
@@ -17,7 +18,7 @@ function SearchInput() {
 				className="SearchInput__input"
 				type="text"
 				placeholder="Search"
-				onKeyUp={onKeyUpHandler}
+				onChange={onChangeHandler}
 			/>
 		</div>
 	);

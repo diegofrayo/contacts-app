@@ -29,11 +29,10 @@ function CreateContactModal() {
 			instagram: form["input-instagram"].value,
 			mail: form["input-mail"].value,
 			tel: form["input-tel"].value,
-			whatsApp: form["input-whatsApp"].value,
+			whatsApp: form["input-whatsapp"].value,
 		};
 
 		dispatch(createContactAction(await Contacts.create(newContact)));
-		EventsManager.dispatchEvent(EventsManager.events.REFRESH_CONTACTS_LIST, "");
 		handleCloseClick();
 		form.reset();
 	}

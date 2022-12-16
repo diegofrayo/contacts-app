@@ -6,7 +6,6 @@ import { useDidMount } from "~/hooks";
 import Contacts from "~/modules/data/contacts";
 import EventsManager from "~/modules/events-manager";
 import { setContactsAction, useDispatch } from "~/modules/state-management";
-import type { T_ReactOnClickEventObject } from "~/types";
 
 function Layout() {
 	// hooks

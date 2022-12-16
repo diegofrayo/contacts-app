@@ -3,15 +3,18 @@ import * as React from "react";
 import type { T_ReactChildren } from "~/types";
 
 import contactsSlice from "./contacts";
+import configSlice from "./config";
 
 // --- Actions ---
 
 export * from "./contacts";
+export * from "./config";
 
 // --- Store ---
 
 const INITIAL_STORE = {
 	contacts: contactsSlice.initialState,
+	config: configSlice.initialState,
 };
 
 type T_Store = typeof INITIAL_STORE;
@@ -22,7 +25,8 @@ export const store = INITIAL_STORE;
 
 const reducers = {
 	contacts: contactsSlice.reducer,
-};
+	config: configSlice.reducer,
+} as const;
 
 type T_Context = {
 	store: T_Store;
@@ -60,16 +64,29 @@ export function Provider({
 	);
 }
 
+type T_Reducer<G_Object = typeof reducers> = G_Object extends {
+	[Key in keyof G_Object as Key]: infer U;
+}
+	? U
+	: never;
+
+type ggg = T_Reducer;
+
 export function useDispatch() {
 	const { store, updateStore } = useContactsContext();
 
 	return function innerDispatch(action: { type: string; payload: any }) {
-		Object.entries(reducers).forEach(([reducerKey, reducerFunction]) => {
-			updateStore({
-				...store,
-				[reducerKey]: reducerFunction(store[reducerKey as keyof typeof INITIAL_STORE], action),
-			});
-		});
+		const updatedStore = Object.entries(reducers).reduce((currentStore, [key, reducerFunction]) => {
+			const reducerKey = key as keyof typeof INITIAL_STORE;
+
+			return {
+				...currentStore,
+				[reducerKey]: reducerFunction(currentStore[reducerKey] as any, action),
+				// TODO: Try to remove this any
+			};
+		}, store);
+
+		updateStore(updatedStore);
 	};
 }
 
@@ -83,4 +100,8 @@ export function useSelector<G_SelectorReturn>(selector: (store: T_Store) => G_Se
 
 export function getContactsSelector(store: T_Store) {
 	return store.contacts.items;
+}
+
+export function getSearchInputValueSelector(store: T_Store) {
+	return store.config.searchInputValue;
 }

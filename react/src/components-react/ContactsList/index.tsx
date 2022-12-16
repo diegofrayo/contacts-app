@@ -8,6 +8,7 @@ import Contacts, { T_Contact } from "~/modules/data/contacts";
 import {
 	deleteContactAction,
 	getContactsSelector,
+	getSearchInputValueSelector,
 	useDispatch,
 	useSelector,
 } from "~/modules/state-management";
@@ -18,6 +19,9 @@ function ContactsList() {
 	const dispatch = useDispatch();
 	const contactsFromState =
 		useSelector<ReturnType<typeof getContactsSelector>>(getContactsSelector);
+	const searchInputValue = useSelector<ReturnType<typeof getSearchInputValueSelector>>(
+		getSearchInputValueSelector,
+	);
 	// TODO: Try to infer this generic argument inside of useSelector function
 
 	// states & refs
@@ -41,19 +45,9 @@ function ContactsList() {
 	);
 
 	// effects
-	useDidMount(() => {
-		// TODO: Implement this using Context
-		// EventsManager.addEventListener<T_RefreshContactsListPayload>(
-		// 	EventsManager.events.REFRESH_CONTACTS_LIST,
-		// 	async function refreshContactsList(filter) {
-		// 		updateContacts(filter);
-		// 	},
-		// );
-	});
-
 	React.useEffect(() => {
-		updateContacts();
-	}, [contactsFromState, updateContacts]);
+		updateContacts(searchInputValue);
+	}, [contactsFromState, updateContacts, searchInputValue]);
 
 	// handlers
 	function handleTelClick(event: T_ReactOnClickEventObject<HTMLAnchorElement>): void {

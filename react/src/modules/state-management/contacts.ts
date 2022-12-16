@@ -1,7 +1,4 @@
-import * as React from "react";
-
 import type { T_Contact } from "~/modules/data/contacts";
-import type { T_ReactChildren } from "~/types";
 
 // --- Store ---
 
@@ -26,7 +23,7 @@ type T_Action<G_Payload = any> = { type: T_ActionTypes; payload: G_Payload };
 const contactsSlice = {
 	name: "contacts",
 	initialState: INITIAL_STORE,
-	reducer: (state = INITIAL_STORE, action: T_Action) => {
+	reducer: (state: typeof INITIAL_STORE, action: T_Action) => {
 		switch (action.type) {
 			case ACTION_TYPES.CREATE_CONTACT:
 				return {

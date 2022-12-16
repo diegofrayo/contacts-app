@@ -38,6 +38,8 @@ class StrategyWithLocalStorage implements IContactsStrategy {
 				tel: "+1 412-632-3247",
 			},
 		]);
+
+		return this.getAll();
 	}
 
 	async create(contact: T_CreateContactDTO) {
