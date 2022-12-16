@@ -70,8 +70,6 @@ type T_Reducer<G_Object = typeof reducers> = G_Object extends {
 	? U
 	: never;
 
-type ggg = T_Reducer;
-
 export function useDispatch() {
 	const { store, updateStore } = useContactsContext();
 
