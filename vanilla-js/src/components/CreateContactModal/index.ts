@@ -4,7 +4,7 @@ import EventsManager from "~/modules/events-manager";
 import { getTargetElement } from "~/utils";
 
 function CreateContactModal() {
-	// handlers
+	// handlers 
 	async function onSubmitHandler(event: Event) {
 		event.preventDefault();
 
@@ -24,6 +24,8 @@ function CreateContactModal() {
 		form.reset();
 	}
 
+	// create close function by removing the class 
+
 	function handleCloseClick(): void {
 		document.querySelector(".CreateContactModal")?.classList.remove("show");
 	}
@@ -39,7 +41,7 @@ function CreateContactModal() {
 				</div>
 				<div class="CreateContactModal__content__form__box">
 					<label class="CreateContactModal__content__form__box__label" for="input-tel">Telephone:</label>
-					<input id="input-tel" name="input-tel" type="tel" class="CreateContactModal__content__form__box__input CreateContactModal__content__form__box__input--tel" placeholder="Telephone" />
+					<input id="input-tel" name="input-tel" type="tel" class="CreateContactModal__content__form__box__input CreateContactModal__content__form__box__input--tel" placeholder="Telephone" required oninvalid="this.setCustomValidity('This field is required')" oninput="this.setCustomValidity('')" /> 
 				</div>
 				<div class="CreateContactModal__content__form__box fw-col-span-full">
 					<label class="CreateContactModal__content__form__box__label" for="input-instagram">Instagram:</label>
