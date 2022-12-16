@@ -1,0 +1,23 @@
+@use "sass:map";
+@use "./utils.scss";
+
+// --- mixins ---
+
+@mixin generate-classes($propertyName, $selectorValue, $propertyValue) {
+	.fw-#{$propertyName}-#{$selectorValue} {
+		#{$propertyName}: $propertyValue;
+	}
+}
+
+// --- main ---
+
+@for $i from 0 through (12 + 4) {
+	$result: utils.getScaleValues($i);
+	$selectorValue: map.get($result, "selectorValue");
+	$propertyValue: map.get($result, "value");
+
+	@include generate-classes(top, $selectorValue, $propertyValue);
+	@include generate-classes(left, $selectorValue, $propertyValue);
+	@include generate-classes(right, $selectorValue, $propertyValue);
+	@include generate-classes(bottom, $selectorValue, $propertyValue);
+}

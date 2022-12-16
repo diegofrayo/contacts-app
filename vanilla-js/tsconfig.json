@@ -1,0 +1,42 @@
+{
+	"compilerOptions": {
+		// Type-cheking
+		"alwaysStrict": true,
+		"strict": true,
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"useUnknownInCatchVariables": true,
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitReturns": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+
+		// JavaScript support
+		"allowJs": true,
+
+		// Modules
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["src/*"]
+		},
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+
+		// Emit
+		"sourceMap": true,
+		"noEmit": true,
+
+		// Language and environment
+		"target": "es2022",
+
+		// Interop Constraints
+		"allowSyntheticDefaultImports": true
+	},
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules"]
+}
