@@ -5,7 +5,6 @@ import { ASSETS_PATH } from "~/config";
 import { useDidMount } from "~/hooks";
 import v from "~/lib/validator";
 import Contacts, { T_Contact } from "~/modules/data/contacts";
-import EventsManager, { T_RefreshContactsListPayload } from "~/modules/events-manager";
 import {
 	deleteContactAction,
 	getContactsSelector,
@@ -16,18 +15,17 @@ import type { T_ReactOnClickEventObject } from "~/types";
 
 function ContactsList() {
 	// hooks
-	const contactsFromState = useSelector(getContactsSelector);
 	const dispatch = useDispatch();
+	const contactsFromState =
+		useSelector<ReturnType<typeof getContactsSelector>>(getContactsSelector);
+	// TODO: Try to infer this generic argument inside of useSelector function
 
 	// states & refs
 	const [contacts, setContacts] = React.useState<T_Contact[]>([]);
-	// console.log({ contactsFromState, contacts });
 
 	// utils
 	const updateContacts = React.useCallback(
 		async function updateContacts(filter?: string) {
-			// console.log("updateContacts", contactsFromState);
-
 			setContacts(
 				v.isNotEmptyString(filter)
 					? contactsFromState.filter((contact) => {

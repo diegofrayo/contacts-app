@@ -114,7 +114,7 @@ async function renderContacts(filter?: string) {
 									</div>
 									${contactHasDetails ? Separator({ size: 1 }) : ""}
 									<div class="fw-flex fw-items-center fw-justify-end">
-										<button class="ContactsList__list__item__extra-info__delete-btn fw-p-1 fw-font-bold fw-text-red" data-contact-id="${
+										<button class="ContactsList__list__item__extra-info__delete-btn fw-p-1 fw-font-bold fw-text-red-600" data-contact-id="${
 											contact.id
 										}">delete</button>
 									</div>
