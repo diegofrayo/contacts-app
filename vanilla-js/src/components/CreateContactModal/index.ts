@@ -39,7 +39,7 @@ function CreateContactModal() {
 				</div>
 				<div class="CreateContactModal__content__form__box">
 					<label class="CreateContactModal__content__form__box__label" for="input-tel">Telephone:</label>
-					<input id="input-tel" name="input-tel" type="tel" class="CreateContactModal__content__form__box__input CreateContactModal__content__form__box__input--tel" placeholder="Telephone" />
+					<input id="input-tel" name="input-tel" type="tel" class="CreateContactModal__content__form__box__input CreateContactModal__content__form__box__input--tel" placeholder="Telephone" oninvalid="this.setCustomValidity('This field is required')" oninput="this.setCustomValidity('')" required />
 				</div>
 				<div class="CreateContactModal__content__form__box fw-col-span-full">
 					<label class="CreateContactModal__content__form__box__label" for="input-instagram">Instagram:</label>
