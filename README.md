@@ -1,6 +1,6 @@
 # contacts-app
 
-App for learning purposes, written two times, using plain JavaScript and using React too.
+App for learning purposes, written two times, using plain JavaScript and using React too
 
 ## Important features
 
