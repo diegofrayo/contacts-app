@@ -56,8 +56,8 @@ function Layout() {
 				className="cpp-gradient--inverse"
 			/>
 			<details>
-				<summary>
-					<h2 className="tw-leading-none tw-mb-6 tw-cursor-pointer">Config</h2>
+				<summary className="tw-mb-6 tw-cursor-pointer">
+					<h2 className="tw-leading-none tw-inline-block tw-relative tw-top-1">Config</h2>
 				</summary>
 				<p className="tw-mb-1">Events manager:</p>
 				<select

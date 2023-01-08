@@ -4,8 +4,8 @@ import StrategyWithBrowserAPI from "./StrategyWithBrowserAPI";
 import { isServer } from "~/utils";
 
 class Bridge {
-	private LOCAL_STORAGE_KEY = "capp_events_manager_strategy";
 	public instance: EventsManagerContext;
+	private LOCAL_STORAGE_KEY = "capp_events_manager_strategy";
 	private selectedStrategy = "window";
 
 	constructor() {

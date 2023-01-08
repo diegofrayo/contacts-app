@@ -34,7 +34,7 @@ class Contact {
 			)}`;
 		}
 
-		return;
+		return "";
 	}
 }
 

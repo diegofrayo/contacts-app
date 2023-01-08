@@ -2,7 +2,6 @@
 
 * {
 	box-sizing: border-box;
-	list-style: none;
 	margin: 0;
 	padding: 0;
 }
@@ -23,6 +22,10 @@ button {
 	background-color: transparent;
 	border: 0;
 	cursor: pointer;
+}
+
+ul {
+	list-style: none;
 }
 
 .cpp-gradient {
